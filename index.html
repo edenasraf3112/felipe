@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>פליפה בוריטו — סטורי</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg0:#070607;
+      --bg1:#120b0b;
+      --ink:#f7f5f3;
+      --muted:#d8cec5;
+
+      --gold:#ffb21a;
+      --gold2:#ffe08a;
+      --hot:#ff3b2f;
+      --lime:#8dff41;
+      --lime2:#d7ffb9;
+
+      --stroke: rgba(255,255,255,.11);
+      --stroke2: rgba(255,255,255,.07);
+      --shadow: 0 24px 60px rgba(0,0,0,.55);
+    }
+
+    *{ box-sizing:border-box; }
+
+    html, body{
+      margin:0;
+      padding:0;
+      width:100%;
+      height:100%;
+      overflow:hidden;
+      font-family:"Heebo", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(1100px 650px at 75% -10%, rgba(255,59,47,.28), transparent 55%),
+        radial-gradient(900px 600px at 10% 110%, rgba(255,178,26,.20), transparent 55%),
+        radial-gradient(700px 520px at 90% 50%, rgba(141,255,65,.08), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg0));
+    }
+
+    body{
+      display:grid;
+      place-items:center;
+    }
+
+    .story{
+      width:min(100vw, calc(100vh * 9 / 16));
+      height:min(100vh, calc(100vw * 16 / 9));
+      aspect-ratio:9/16;
+      position:relative;
+      overflow:hidden;
+      background:
+        radial-gradient(900px 500px at 50% -10%, rgba(255,178,26,.14), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border-left:1px solid var(--stroke);
+      border-right:1px solid var(--stroke);
+      box-shadow:var(--shadow);
+    }
+
+    .story::before{
+      content:"";
+      position:absolute; inset:0;
+      background:repeating-linear-gradient(0deg, rgba(255,255,255,.015) 0 2px, transparent 2px 6px);
+      opacity:.4;
+      pointer-events:none;
+      mix-blend-mode:overlay;
+    }
+
+    .story::after{
+      content:"";
+      position:absolute; inset:-60px;
+      background:
+        radial-gradient(320px 220px at 15% 15%, rgba(255,59,47,.16), transparent 65%),
+        radial-gradient(320px 220px at 85% 20%, rgba(255,178,26,.15), transparent 65%),
+        radial-gradient(360px 240px at 50% 110%, rgba(141,255,65,.06), transparent 70%);
+      pointer-events:none;
+      filter:blur(4px);
+    }
+
+    .inner{
+      position:relative;
+      z-index:1;
+      height:100%;
+      padding:8px;
+      display:grid;
+      grid-template-rows:auto auto 1fr auto;
+      gap:6px;
+    }
+
+    .hero{
+      border:1px solid rgba(255,178,26,.35);
+      border-radius:16px;
+      padding:7px;
+      background:linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.15));
+      box-shadow:0 10px 30px rgba(0,0,0,.35) inset;
+    }
+
+    .logoFrame{
+      width:100%;
+      height:200px;
+      border-radius:12px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.25);
+      position:relative;
+    }
+
+    .logoFrame img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:4% 32%;
+      display:block;
+      filter:saturate(1.1) contrast(1.05);
+      transform:scale(1.02);
+    }
+
+    .logoFrame::after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(260px 140px at 50% 40%, rgba(255,178,26,.10), transparent 70%),
+        linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.20));
+      pointer-events:none;
+    }
+
+    .title{
+      text-align:center;
+      margin-top:6px;
+      font-weight:900;
+      font-size:26px;
+      line-height:1;
+      color:var(--gold);
+      text-shadow:0 2px 0 rgba(0,0,0,.35), 0 10px 30px rgba(255,59,47,.18);
+    }
+
+    .subinfo{
+      margin-top:4px;
+      text-align:center;
+      font-size:13px;
+      font-weight:800;
+      line-height:1.2;
+      color:rgba(255,255,255,.9);
+    }
+
+    .subinfo .phone{
+      display:block;
+      margin-top:2px;
+      font-size:14px;
+      font-weight:900;
+      color:#fff;
+    }
+
+    .section{
+      border-radius:18px;
+      border:1px solid var(--stroke2);
+      background:linear-gradient(180deg, rgba(0,0,0,.26), rgba(0,0,0,.12));
+      padding:7px;
+      box-shadow:0 14px 35px rgba(0,0,0,.22);
+      overflow:hidden;
+    }
+
+    .sectionHead{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:5px;
+    }
+
+    .sectionTitle{
+      margin:0;
+      font-size:13px;
+      font-weight:900;
+    }
+
+    .pill{
+      font-size:9px;
+      font-weight:900;
+      padding:4px 7px;
+      border-radius:999px;
+      color:#140c06;
+      background:linear-gradient(90deg, var(--gold), var(--gold2));
+      border:1px solid rgba(0,0,0,.25);
+      white-space:nowrap;
+    }
+
+    .pill.hot{
+      background:linear-gradient(90deg, var(--hot), #ff968a);
+    }
+
+    .pill.green{
+      background:linear-gradient(90deg, var(--lime), var(--lime2));
+      color:#102008;
+    }
+
+    .comboRow{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:5px;
+    }
+
+    .combo{
+      min-height:162px;
+      border-radius:16px;
+      padding:7px 6px 6px;
+      position:relative;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.03);
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+
+    .combo.garlic{
+      background:
+        radial-gradient(120px 120px at 82% 20%, rgba(255,255,255,.10), transparent 62%),
+        radial-gradient(130px 130px at 14% 84%, rgba(255,226,160,.14), transparent 64%),
+        linear-gradient(180deg, rgba(74,48,16,.95), rgba(19,12,8,.96));
+    }
+
+    .combo.spicy{
+      background:
+        radial-gradient(120px 120px at 82% 18%, rgba(255,84,62,.20), transparent 62%),
+        radial-gradient(120px 120px at 15% 85%, rgba(255,178,26,.10), transparent 64%),
+        linear-gradient(180deg, rgba(85,19,14,.96), rgba(23,10,9,.96));
+    }
+
+    .combo.felipe{
+      background:
+        radial-gradient(120px 120px at 85% 18%, rgba(141,255,65,.10), transparent 62%),
+        radial-gradient(120px 120px at 15% 85%, rgba(255,178,26,.12), transparent 64%),
+        linear-gradient(180deg, rgba(39,42,13,.92), rgba(14,12,8,.97));
+    }
+
+    .comboDecor{
+      position:absolute;
+      top:5px;
+      left:5px;
+      font-size:18px;
+      line-height:1;
+      filter:drop-shadow(0 4px 12px rgba(0,0,0,.35));
+    }
+
+    .comboName{
+      margin:0;
+      padding-top:14px;
+      font-size:12.8px;
+      line-height:1.04;
+      font-weight:900;
+      color:#fff5e6;
+      text-shadow:0 2px 0 rgba(0,0,0,.28);
+    }
+
+    .comboPrice{
+      margin-top:4px;
+      display:inline-flex;
+      align-self:flex-start;
+      padding:3px 6px;
+      border-radius:999px;
+      background:rgba(0,0,0,.28);
+      border:1px solid rgba(255,255,255,.10);
+      color:var(--gold);
+      font-size:10.6px;
+      font-weight:900;
+    }
+
+    .comboText{
+      margin-top:4px;
+      font-size:8.9px;
+      line-height:1.2;
+      font-weight:800;
+      color:var(--muted);
+    }
+
+    .comboBottom{
+      margin-top:5px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:3px;
+    }
+
+    .miniBadge{
+      font-size:7.6px;
+      font-weight:900;
+      padding:3px 5px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.06);
+      color:#fff;
+    }
+
+    .miniBadge.gold{
+      color:#140c06;
+      background:linear-gradient(90deg, var(--gold), var(--gold2));
+      border-color:rgba(0,0,0,.16);
+    }
+
+    .bottomGrid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:6px;
+      min-height:0;
+    }
+
+    .stack{
+      display:grid;
+      gap:6px;
+      min-height:0;
+    }
+
+    .list{
+      margin:0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:4px;
+    }
+
+    .row{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:7px;
+      padding:6px 7px;
+      border-radius:13px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+    }
+
+    .name{
+      font-size:10.6px;
+      font-weight:900;
+      line-height:1.15;
+    }
+
+    .sub{
+      display:block;
+      margin-top:2px;
+      font-size:8.4px;
+      font-weight:700;
+      color:rgba(255,255,255,.68);
+      line-height:1.12;
+    }
+
+    .price{
+      font-size:10.6px;
+      font-weight:900;
+      color:var(--gold);
+      white-space:nowrap;
+      padding:3px 7px;
+      border-radius:10px;
+      background:rgba(0,0,0,.25);
+      border:1px solid rgba(255,178,26,.22);
+    }
+
+    .chips{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:4px;
+    }
+
+    .chip{
+  border-radius:12px;
+  padding:7px 7px;
+  font-weight:900;
+  font-size:9.6px;
+  background:rgba(255,255,255,.05);
+  border:1px dashed rgba(255,255,255,.18);
+  display:flex;
+  align-items:center;
+  gap:6px;
+  min-height:28px;
+  line-height:1.1;
+}
+
+    .dot{
+      width:6px;
+      height:6px;
+      border-radius:999px;
+      background:var(--hot);
+      box-shadow:0 0 0 2px rgba(255,59,47,.16);
+      flex:0 0 auto;
+    }
+
+    .dot.gold{
+      background:var(--gold);
+      box-shadow:0 0 0 2px rgba(255,178,26,.14);
+    }
+
+    .dot.lime{
+      background:var(--lime);
+      box-shadow:0 0 0 2px rgba(141,255,65,.12);
+    }
+
+    .footer{
+      text-align:center;
+      padding:2px;
+      color:var(--gold);
+      font-size:20px;
+      font-weight:900;
+      line-height:1;
+      text-shadow:0 2px 0 rgba(0,0,0,.35), 0 10px 30px rgba(255,59,47,.18);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="story">
+    <div class="inner">
+      <div class="hero">
+        <div class="logoFrame">
+          <img src="logo_story.png" alt="פליפה בוריטו">
+        </div>
+
+        <div class="title">פליפה בוריטו</div>
+
+        <div class="subinfo">
+          זמינים משעה 17:00 - משלוחים חינם!
+          <span class="phone">052-7077815</span>
+        </div>
+      </div>
+
+      <section class="section">
+        <div class="sectionHead">
+          <h2 class="sectionTitle">הקומבינציות שלנו</h2>
+          <span class="pill">מיוחדות של פליפה</span>
+        </div>
+
+        <div class="comboRow">
+          <article class="combo garlic">
+            <div class="comboDecor">🧄</div>
+            <div>
+              <h3 class="comboName">בוריטו שום</h3>
+              <div class="comboPrice">63₪</div>
+              <div class="comboText">
+                גוואקמולי, סלט חריף, איולי שום משובח, חסה, אורז מומלץ.
+                עוף / אנטריקוט. מוגש עם צ׳יפס.
+              </div>
+            </div>
+            <div class="comboBottom">
+              <span class="miniBadge gold">שום</span>
+              <span class="miniBadge">+ צ׳יפס</span>
+            </div>
+          </article>
+
+          <article class="combo spicy">
+            <div class="comboDecor">🌶️</div>
+            <div>
+              <h3 class="comboName">בוריטו חריף</h3>
+              <div class="comboPrice">63₪</div>
+              <div class="comboText">
+                גוואקמולי, סלט חריף, סלסה חריפה, שזיפים, אורז, חסה, בצל.
+                עוף / אנטריקוט. מוגש עם צ׳יפס.
+              </div>
+            </div>
+            <div class="comboBottom">
+              <span class="miniBadge gold">חריף</span>
+              <span class="miniBadge">+ צ׳יפס</span>
+            </div>
+          </article>
+
+          <article class="combo felipe">
+            <div class="comboDecor">🌯</div>
+            <div>
+              <h3 class="comboName">מה שפליפה אוהב</h3>
+              <div class="comboPrice">63₪</div>
+              <div class="comboText">
+                גוואקמולי, סלט ירקות, סלט חריף, איולי שום, סלסה חריפה,
+                חסה, בצל, שזיפים, אורז. עוף. מוגש עם צ׳יפס.
+              </div>
+            </div>
+            <div class="comboBottom">
+              <span class="miniBadge gold">פליפה</span>
+              <span class="miniBadge">+ צ׳יפס</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <div class="bottomGrid">
+        <div class="stack">
+          <section class="section">
+            <div class="sectionHead">
+              <h2 class="sectionTitle">בוריטו להרכבה אישית</h2>
+              <span class="pill hot">בוחרים לבד</span>
+            </div>
+
+            <ul class="list">
+              <li class="row">
+                <div class="name">אנטריקוט<span class="sub">בוחרים רטבים ותוספות איך שאתם אוהבים</span></div>
+                <div class="price">64₪</div>
+              </li>
+              <li class="row">
+                <div class="name">בקר טחון<span class="sub">בוחרים רטבים ותוספות איך שאתם אוהבים</span></div>
+                <div class="price">60₪</div>
+              </li>
+              <li class="row">
+                <div class="name">עוף<span class="sub">בוחרים רטבים ותוספות איך שאתם אוהבים</span></div>
+                <div class="price">58₪</div>
+              </li>
+            </ul>
+          </section>
+
+          <section class="section">
+            <div class="sectionHead">
+              <h2 class="sectionTitle">תוספות בצד</h2>
+              <span class="pill">סוגר פינה</span>
+            </div>
+
+            <ul class="list">
+              <li class="row"><div class="name">צ׳יפס</div><div class="price">15₪</div></li>
+              <li class="row"><div class="name">כדורי פירה</div><div class="price">16₪</div></li>
+              <li class="row"><div class="name">טבעות בצל</div><div class="price">16₪</div></li>
+            </ul>
+          </section>
+        </div>
+
+        <div class="stack">
+          <section class="section">
+            <div class="sectionHead">
+              <h2 class="sectionTitle">רטבים</h2>
+              <span class="pill hot">לבחירה</span>
+            </div>
+
+            <div class="chips">
+              <div class="chip"><span class="dot gold"></span>שזיפים</div>
+              <div class="chip"><span class="dot lime"></span>איולי שום</div>
+              <div class="chip"><span class="dot gold"></span>אלף האיים</div>
+              <div class="chip"><span class="dot"></span>מיונז</div>
+              <div class="chip"><span class="dot"></span>קטשופ</div>
+              <div class="chip"><span class="dot lime"></span>איולי עשבי טיבול</div>
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="sectionHead">
+              <h2 class="sectionTitle">תוספות</h2>
+              <span class="pill green">לבחירה</span>
+            </div>
+
+            <div class="chips">
+              <div class="chip"><span class="dot lime"></span>סלט ירקות</div>
+              <div class="chip"><span class="dot"></span>סלט חריף</div>
+              <div class="chip"><span class="dot gold"></span>גוואקמולי</div>
+              <div class="chip"><span class="dot"></span>סלסה חריפה</div>
+              <div class="chip"><span class="dot gold"></span>סלסה מתוקה</div>
+              <div class="chip"><span class="dot lime"></span>חסה</div>
+              <div class="chip"><span class="dot gold"></span>בצל</div>
+              <div class="chip"><span class="dot gold"></span>בצל מקורמל</div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div class="footer">מחכים לכם!</div>
+    </div>
+  </div>
+</body>
+</html>
