@@ -1122,7 +1122,7 @@ text-shadow:0 0 10px rgba(255,178,26,.5);
         alert('צריך למלא לפחות שם וטלפון או אימייל.');
         return;
       }
-      profile = { id: Date.now().toString(), name, contact, address };
+      profile = { name, contact, address };
       persist();
       closeModal('authModal');
       renderProfile();
