@@ -1276,7 +1276,7 @@ bar.style.width = percent + "%";
       });
     }
 
-    async function saveOrder(orderPayload){
+   async function saveOrder(orderPayload){
   delete orderPayload.id;
 
   const { error } = await supabaseClient
