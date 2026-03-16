@@ -1277,9 +1277,14 @@ bar.style.width = percent + "%";
     }
 
     async function saveOrder(orderPayload){
-      const { error } = await supabaseClient.from('orders').insert([orderPayload]);
-      if(error) throw error;
-    }
+  delete orderPayload.id;
+
+  const { error } = await supabaseClient
+    .from('orders')
+    .insert([orderPayload]);
+
+  if(error) throw error;
+}
 
     async function checkout(){
       const messageBox = document.getElementById('checkoutMessage');
