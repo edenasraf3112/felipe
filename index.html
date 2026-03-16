@@ -1214,7 +1214,7 @@ bar.style.width = percent + "%";
         alert('צריך למלא לפחות שם וטלפון או אימייל.');
         return;
       }
-      profile = { id: profile?.id || Date.now().toString(), name, contact: phone || email, address };
+      profile = { name, contact: phone || email, address };
       persist();
       document.getElementById('clubFormWrap').style.display = 'none';
       renderProfile();
