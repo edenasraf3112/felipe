@@ -705,6 +705,25 @@ text-shadow:0 0 10px rgba(255,178,26,.5);
         <div id="couponMessage" style="margin-top:6px;font-size:12px;color:#8dff41"></div>
       </div>
 
+
+      <div class="field">
+  <label>אמצעי תשלום</label>
+
+  <div style="display:flex; gap:10px; margin-top:8px">
+    
+    <button id="payCashBtn" class="btn btn-primary" style="flex:1"
+      onclick="selectPayment('cash')">
+      💵 מזומן
+    </button>
+
+    <button id="payCardBtn" class="btn btn-secondary" style="flex:1"
+      onclick="selectPayment('card')">
+      💳 אשראי
+    </button>
+
+  </div>
+</div>
+      
       <button class="btn btn-primary" style="width:100%" onclick="checkout()">שליחת הזמנה</button>
       <div id="checkoutMessage" class="message-box"></div>
     </div>
@@ -1090,6 +1109,33 @@ text-shadow:0 0 10px rgba(255,178,26,.5);
         `;
       }).join('');
 
+
+
+     // תשלום באשראי
+if(paymentMethod === "card"){
+  const totals = calculateTotals(true);
+  const total = Math.round(totals.finalTotal);
+
+  const tempOrderId = Date.now();
+
+  // שמירת הזמנה זמנית
+  localStorage.setItem("pendingOrder", JSON.stringify({
+    id: tempOrderId,
+    cart,
+    profile,
+    totals
+  }));
+
+  // ⚠️ תחליף ללינק סליקה אמיתי בהמשך
+  const paymentUrl =
+    "https://example-payment-link.com?amount=" + total +
+    "&success_url=" + window.location.origin + "/?payment=success" +
+    "&fail_url=" + window.location.origin + "/?payment=fail";
+
+  window.location.href = paymentUrl;
+  return;
+}
+      
       const totals = calculateTotals(true);
       subtotalEl.textContent = Math.round(totals.subtotal) + '₪';
       if(totals.couponDiscount > 0){
@@ -1306,7 +1352,7 @@ bar.style.width = percent + "%";
 
         // חסימת לקוחות לפי טלפון
 const blockedPhones = [
-  "0503313034",
+  "0501234567",
   "0529876543"
 ];
 
@@ -1404,10 +1450,67 @@ await saveOrder({
 }
     }
 
+let paymentMethod = "cash";
+
+function selectPayment(method){
+  paymentMethod = method;
+
+  document.getElementById("payCashBtn").classList.remove("btn-primary");
+  document.getElementById("payCardBtn").classList.remove("btn-primary");
+
+  document.getElementById("payCashBtn").classList.add("btn-secondary");
+  document.getElementById("payCardBtn").classList.add("btn-secondary");
+
+  if(method === "cash"){
+    document.getElementById("payCashBtn").classList.add("btn-primary");
+  } else {
+    document.getElementById("payCardBtn").classList.add("btn-primary");
+  }
+}
+
+function handlePaymentReturn(){
+  const params = new URLSearchParams(window.location.search);
+  const status = params.get("payment");
+
+  if(!status) return;
+
+  const pending = JSON.parse(localStorage.getItem("pendingOrder") || "null");
+  if(!pending) return;
+
+  if(status === "success"){
+    finalizeOrderAfterPayment(pending);
+    alert("✅ התשלום הצליח! ההזמנה התקבלה");
+  } else {
+    alert("❌ התשלום נכשל, ההזמנה לא נשמרה");
+  }
+
+  localStorage.removeItem("pendingOrder");
+  window.history.replaceState({}, document.title, window.location.pathname);
+}
+
+    async function finalizeOrderAfterPayment(pending){
+  const { cart, profile, totals } = pending;
+
+  const total = Math.round(totals.finalTotal);
+
+  await saveOrder({
+    order_number: Date.now(),
+    customer_name: profile.name,
+    customer_contact: profile.contact,
+    customer_address: profile.address || '',
+    items: cart,
+    final_total: total,
+    payment_method: "card",
+    created_at: new Date().toISOString()
+  });
+}
+    
     updateCart();
     renderProfile();
     renderHistory();
     updatePointsDisplay();
+    handlePaymentReturn();
+    
   </script>
 </body>
 </html>
