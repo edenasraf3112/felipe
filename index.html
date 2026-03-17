@@ -1304,6 +1304,17 @@ bar.style.width = percent + "%";
           return;
         }
 
+        // חסימת לקוחות לפי טלפון
+const blockedPhones = [
+  "0503313034",
+  "0529876543"
+];
+
+if(blockedPhones.includes(profile.contact)){
+  alert("❌ לא ניתן לבצע הזמנה ממספר זה");
+  return;
+}
+
         const totals = calculateTotals(true);
         const total = Math.round(totals.finalTotal);
         const subtotal = Math.round(totals.subtotal);
