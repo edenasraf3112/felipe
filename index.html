@@ -219,6 +219,9 @@ text-shadow:0 0 10px rgba(255,178,26,.5);
     .btn-primary{background:linear-gradient(90deg,var(--gold),var(--gold2));color:#1f1306;box-shadow:0 10px 24px rgba(255,178,26,.16)}
     .btn-secondary{background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--text)}
     .btn-danger{background:rgba(255,80,63,.12);border:1px solid rgba(255,80,63,.28);color:#fff}
+    .btn-secondary {
+  color: white !important;
+}
     .hero-art{
       position:absolute;left:-6px;bottom:-8px;width:110px;height:110px;border-radius:28px;overflow:hidden;
       border:1px solid rgba(255,255,255,.08);opacity:.92;box-shadow:var(--shadow)
@@ -1472,6 +1475,8 @@ function selectPayment(method){
   cardBtn.style.background = "rgba(255,255,255,.05)";
   cashBtn.style.border = "1px solid var(--line)";
   cardBtn.style.border = "1px solid var(--line)";
+  cashBtn.style.color = "white";   // 🔥 זה התיקון
+  cardBtn.style.color = "white";   // 🔥 זה התיקון
 
   // בחירה
   const activeBtn = method === "cash" ? cashBtn : cardBtn;
@@ -1481,6 +1486,7 @@ function selectPayment(method){
   activeBtn.style.color = "#1f1306";
   activeBtn.style.border = "none";
 }
+    
 function handlePaymentReturn(){
   const params = new URLSearchParams(window.location.search);
   const status = params.get("payment");
