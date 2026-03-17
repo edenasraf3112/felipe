@@ -1366,9 +1366,23 @@ const blockedPhones = [
   "0529876543"
 ];
 
+// חסימת לקוחות לפי טלפון
 if(blockedPhones.includes(profile.contact)){
   alert("❌ לא ניתן לבצע הזמנה ממספר זה");
   return;
+}
+
+// ===== PAYMENT CHECK =====
+if(paymentMethod === "card"){
+  alert("מעביר לתשלום..."); // לבדיקה
+
+  const totals = calculateTotals(true);
+  const total = Math.round(totals.finalTotal);
+
+  // זמני לבדיקה
+  window.location.href = "https://google.com";
+
+  return; // 🔥 הכי חשוב
 }
 
         const totals = calculateTotals(true);
