@@ -1361,7 +1361,7 @@ bar.style.width = percent + "%";
         }
 
         // חסימת לקוחות לפי טלפון
-const blockedPhones = getBlockedPhones();
+const blockedPhones = [
   "0501234567",
   "0529876543"
 ];
@@ -1537,50 +1537,6 @@ function handlePaymentReturn(){
     created_at: new Date().toISOString()
   });
 }
-
-    // שמירת חסימות
-function getBlockedPhones(){
-  return JSON.parse(localStorage.getItem("blockedPhones") || "[]");
-}
-
-function setBlockedPhones(list){
-  localStorage.setItem("blockedPhones", JSON.stringify(list));
-}
-
-// חסימה
-function blockPhone(){
-  const input = document.getElementById("blockPhoneInput");
-  const phone = input.value.trim();
-
-  if(!phone){
-    alert("הכנס מספר");
-    return;
-  }
-
-  let list = getBlockedPhones();
-
-  if(!list.includes(phone)){
-    list.push(phone);
-    setBlockedPhones(list);
-    alert("נחסם בהצלחה");
-  }
-
-  input.value = "";
-}
-
-// הסרת חסימה
-function unblockPhone(){
-  const input = document.getElementById("blockPhoneInput");
-  const phone = input.value.trim();
-
-  let list = getBlockedPhones();
-  list = list.filter(p => p !== phone);
-
-  setBlockedPhones(list);
-
-  alert("הוסר חסימה");
-  input.value = "";
-}
     
     updateCart();
     renderProfile();
@@ -1589,26 +1545,5 @@ function unblockPhone(){
     handlePaymentReturn();
     
   </script>
-
-<div id="adminPanel" style="position:fixed;bottom:20px;left:20px;background:#111;padding:15px;border-radius:12px;border:1px solid #333;z-index:9999;width:250px">
-  
-  <h3 style="margin:0 0 10px 0;color:white">ניהול חסימות</h3>
-
-  <input 
-    id="blockPhoneInput" 
-    placeholder="הכנס טלפון" 
-    style="width:100%;padding:8px;border-radius:8px;border:none;margin-bottom:8px"
-  />
-
-  <button onclick="blockPhone()" style="width:100%;margin-bottom:5px">
-    🚫 חסום
-  </button>
-
-  <button onclick="unblockPhone()" style="width:100%">
-    ✅ הסר חסימה
-  </button>
-
-</div>
-  
 </body>
 </html>
