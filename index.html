@@ -1041,7 +1041,7 @@ text-shadow:0 0 10px rgba(255,178,26,.5);
       const afterCoupon = Math.max(0, subtotal - couponDiscount);
       const pointsDiscount = Math.min(pointsRedeemed, afterCoupon);
       const finalTotal = Math.max(0, afterCoupon - pointsDiscount);
-      const earnedPoints = includeEarned ? Math.round(finalTotal * 0.1) : 0;
+      const earnedPoints = includeEarned ? Math.round(finalTotal * 0.05) : 0;
       return { subtotal, couponDiscount, pointsDiscount, finalTotal, earnedPoints };
     }
 
