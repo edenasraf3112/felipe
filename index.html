@@ -208,7 +208,14 @@ text-shadow:0 0 10px rgba(255,178,26,.5);
     .hero-title{margin:14px 0 10px;font-size:31px;line-height:.95;font-weight:900;max-width:280px}
     .hero-text{max-width:310px;font-size:14px;line-height:1.55;color:var(--muted)}
     .hero-actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
-    .btn{border:none;border-radius:18px;padding:13px 16px;font-weight:900;cursor:pointer}
+    .btn{
+  border:none;
+  border-radius:18px;
+  padding:13px 16px;
+  font-weight:900;
+  cursor:pointer;
+  transition: all 0.2s ease;
+}
     .btn-primary{background:linear-gradient(90deg,var(--gold),var(--gold2));color:#1f1306;box-shadow:0 10px 24px rgba(255,178,26,.16)}
     .btn-secondary{background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--text)}
     .btn-danger{background:rgba(255,80,63,.12);border:1px solid rgba(255,80,63,.28);color:#fff}
@@ -1455,19 +1462,25 @@ let paymentMethod = "cash";
 function selectPayment(method){
   paymentMethod = method;
 
-  document.getElementById("payCashBtn").classList.remove("btn-primary");
-  document.getElementById("payCardBtn").classList.remove("btn-primary");
+  const cashBtn = document.getElementById("payCashBtn");
+  const cardBtn = document.getElementById("payCardBtn");
 
-  document.getElementById("payCashBtn").classList.add("btn-secondary");
-  document.getElementById("payCardBtn").classList.add("btn-secondary");
+  // איפוס
+  cashBtn.style.transform = "scale(1)";
+  cardBtn.style.transform = "scale(1)";
+  cashBtn.style.background = "rgba(255,255,255,.05)";
+  cardBtn.style.background = "rgba(255,255,255,.05)";
+  cashBtn.style.border = "1px solid var(--line)";
+  cardBtn.style.border = "1px solid var(--line)";
 
-  if(method === "cash"){
-    document.getElementById("payCashBtn").classList.add("btn-primary");
-  } else {
-    document.getElementById("payCardBtn").classList.add("btn-primary");
-  }
+  // בחירה
+  const activeBtn = method === "cash" ? cashBtn : cardBtn;
+
+  activeBtn.style.transform = "scale(1.05)";
+  activeBtn.style.background = "linear-gradient(90deg,var(--gold),var(--gold2))";
+  activeBtn.style.color = "#1f1306";
+  activeBtn.style.border = "none";
 }
-
 function handlePaymentReturn(){
   const params = new URLSearchParams(window.location.search);
   const status = params.get("payment");
