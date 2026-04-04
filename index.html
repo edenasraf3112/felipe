@@ -393,7 +393,7 @@ text-shadow:0 0 10px rgba(255,178,26,.5);
           <div class="hero-card">
             <div class="hero-badge">🔥 זמינים משעה 17:00 • משלוחים חינם</div>
             <div class="hero-title">אתה בוחר את הבוריטו. אנחנו עושים אותו טעים.</div>
-            <div class="hero-text">הבוריטו הכי טוב לערב. קומבינציות מוכנות או בנייה אישית בדיוק כמו שאתה אוהב.</div>
+            <div class="hero-text">הבוריטו הכי טוב לערב. רק המנות המדויקות של פליפה, בלי סיבוכים ועם טעם שחוזרים אליו.</div>
             <div class="hero-actions">
               <button class="btn btn-primary" data-page-link="menu">להתחיל הזמנה</button>
               <button class="btn btn-secondary" data-page-link="profile">המשתמש שלי</button>
@@ -409,70 +409,61 @@ text-shadow:0 0 10px rgba(255,178,26,.5);
               <div class="section-sub">תבחר איך בא לך להתחיל.</div>
             </div>
           </div>
-          <div class="simple-grid">
-            <div class="tile" onclick="document.getElementById('homeCombos').scrollIntoView({behavior:'smooth'})">
-              <div class="tile-icon">🌯</div>
-              <div class="tile-title">קומבינציות מוכנות</div>
-              <div class="tile-text">המלצות מפתיעות שאנחנו בטוחים שתאהב</div>
-            </div>
-            <div class="tile" onclick="showPage('menu')">
-              <div class="tile-icon">🥗</div>
-              <div class="tile-title">הרכבה אישית</div>
-              <div class="tile-text">תרכיבו את הבוריטו האהוב עליכם</div>
-            </div>
-          </div>
-        </section>
+          
+  <div class="simple-grid">
+    <div class="tile" onclick="document.getElementById('homeCombos').scrollIntoView({behavior:'smooth'})">
+      <div class="tile-icon">🔥</div>
+      <div class="tile-title">המנות של פליפה</div>
+      <div class="tile-text">שלוש מנות מדויקות, מושקעות ומוגשות עם צ׳יפס.</div>
+    </div>
+    <div class="tile" onclick="showPage('menu')">
+      <div class="tile-icon">🍟</div>
+      <div class="tile-title">לתפריט המלא</div>
+      <div class="tile-text">כניסה מהירה לכל המנות והתוספות בלחיצה אחת.</div>
+    </div>
+  </div>
+</section>
 
-        <section class="section" id="homeCombos">
+<section class="section" id="homeCombos">
           <div class="section-head">
             <div>
               <div class="section-title">להתחיל בקליק</div>
             </div>
           </div>
           <div class="entries">
-            <div class="entry-card garlic" onclick="openCombo('garlic')">
-              <div class="entry-head">
-                <div>
-                  <div class="entry-title">🧄 בוריטו שום</div>
-                  <div class="entry-desc">גוואקמולי, סלט חריף, איולי שום משובח, חסה, אורז מומלץ. עוף / אנטריקוט. מוגש עם צ׳יפס.</div>
-                </div>
-                <div class="entry-price">63₪</div>
-              </div>
-              <div class="entry-tags"><div class="entry-tag">שום</div><div class="entry-tag">+ צ׳יפס</div></div>
-            </div>
 
-            <div class="entry-card spicy" onclick="openCombo('spicy')">
-              <div class="entry-head">
-                <div>
-                  <div class="entry-title">🌶️ בוריטו חריף</div>
-                  <div class="entry-desc">גוואקמולי, סלט חריף, סלסה חריפה, שזיפים, אורז, חסה, בצל. עוף / אנטריקוט. מוגש עם צ׳יפס.</div>
-                </div>
-                <div class="entry-price">63₪</div>
-              </div>
-              <div class="entry-tags"><div class="entry-tag">חריף</div><div class="entry-tag">שזיפים</div></div>
-            </div>
+<div class="entry-card garlic" onclick="openCombo('marseille')">
+  <div class="entry-head">
+    <div>
+      <div class="entry-title">🇫🇷🥑 מרסיי</div>
+      <div class="entry-desc">גוואקמולי, איולי שום משובח, רוטב שזיפים, בצל, חסה ואורז עשבי טיבול. עוף. בכל מנה מגיע צ׳יפס.</div>
+    </div>
+    <div class="entry-price">65₪</div>
+  </div>
+  <div class="entry-tags"><div class="entry-tag">עוף</div><div class="entry-tag">+ צ׳יפס</div></div>
+</div>
 
-            <div class="entry-card felipe" onclick="openCombo('felipe')">
-              <div class="entry-head">
-                <div>
-                  <div class="entry-title">🌯 מה שפליפה אוהב</div>
-                  <div class="entry-desc">גוואקמולי, סלט ירקות, סלט חריף, איולי שום, סלסה חריפה, חסה, בצל, שזיפים ואורז. עוף. מוגש עם צ׳יפס.</div>
-                </div>
-                <div class="entry-price">63₪</div>
-              </div>
-              <div class="entry-tags"><div class="entry-tag">בחירת הבית</div><div class="entry-tag">עוף</div></div>
-            </div>
+<div class="entry-card spicy" onclick="openCombo('rio')">
+  <div class="entry-head">
+    <div>
+      <div class="entry-title">🔥🌶️ ריו — לאמיצים בלבד!</div>
+      <div class="entry-desc">גוואקמולי, סלסה חריפה, ברביקיו מעושן, סלט חריף, חסה, בצל ואורז עשבי טיבול. אנטריקוט. בכל מנה מגיע צ׳יפס.</div>
+    </div>
+    <div class="entry-price">65₪</div>
+  </div>
+  <div class="entry-tags"><div class="entry-tag">אנטריקוט</div><div class="entry-tag">חריף</div></div>
+</div>
 
-            <div class="entry-card custom" onclick="openBuild()">
-              <div class="entry-head">
-                <div>
-                  <div class="entry-title">בוריטו להרכבה אישית</div>
-                  <div class="entry-desc">בונים את הבוריטו כמו שאתם אוהבים.</div>
-                </div>
-                <div class="entry-price">החל מ־58₪</div>
-              </div>
-              <div class="entry-tags"><div class="entry-tag">אנטריקוט 64₪</div><div class="entry-tag">בקר 60₪</div><div class="entry-tag">עוף 58₪</div></div>
-            </div>
+<div class="entry-card felipe" onclick="openCombo('philadelphia')">
+  <div class="entry-head">
+    <div>
+      <div class="entry-title">🗽🥬 פילדלפיה</div>
+      <div class="entry-desc">גוואקמולי, חסה, סלט ירקות, רוטב הבית, גבינה טבעונית ואורז עשבי טיבול. אנטריקוט. בכל מנה מגיע צ׳יפס.</div>
+    </div>
+    <div class="entry-price">66₪</div>
+  </div>
+  <div class="entry-tags"><div class="entry-tag">אנטריקוט</div><div class="entry-tag">גבינה טבעונית</div></div>
+</div>
           </div>
         </section>
 
@@ -489,16 +480,6 @@ text-shadow:0 0 10px rgba(255,178,26,.5);
               <h3>🍟 צ׳יפס</h3>
               <p>תוספת קלאסית ליד הבוריטו • 15₪</p>
             </div>
-
-            <div class="feature-card" onclick="addSide('🥔 כדורי פירה',16)" style="cursor:pointer">
-              <h3>🥔 כדורי פירה</h3>
-              <p>רך, חם וסוגר פינה • 16₪</p>
-            </div>
-
-            <div class="feature-card" onclick="addSide('🧅 טבעות בצל',16)" style="cursor:pointer">
-              <h3>🧅 טבעות בצל</h3>
-              <p>קראנץ׳ טוב בצד • 16₪</p>
-            </div>
           </div>
         </section>
       </section>
@@ -506,13 +487,14 @@ text-shadow:0 0 10px rgba(255,178,26,.5);
       <section id="menuPage" class="page">
         <div class="clean-card">
           <h3>התפריט</h3>
-          <p>מכאן אפשר לפתוח כל מוצר, לבחור שם למנה, התאמות אישיות, הערה והוספה לסל.</p>
-          <div class="entries" style="margin-top:14px">
-            <div class="entry-card garlic" onclick="openCombo('garlic')"><div class="entry-head"><div><div class="entry-title">🧄 בוריטו שום</div><div class="entry-desc">לחץ להתאמה אישית והוספה לסל.</div></div><div class="entry-price">63₪</div></div></div>
-            <div class="entry-card spicy" onclick="openCombo('spicy')"><div class="entry-head"><div><div class="entry-title">🌶️ בוריטו חריף</div><div class="entry-desc">לחץ להתאמה אישית והוספה לסל.</div></div><div class="entry-price">63₪</div></div></div>
-            <div class="entry-card felipe" onclick="openCombo('felipe')"><div class="entry-head"><div><div class="entry-title">🌯 מה שפליפה אוהב</div><div class="entry-desc">לחץ להתאמה אישית והוספה לסל.</div></div><div class="entry-price">63₪</div></div></div>
-            <div class="entry-card custom" onclick="openBuild()"><div class="entry-head"><div><div class="entry-title">בוריטו להרכבה אישית</div><div class="entry-desc">בשר, רטבים, תוספות, שם להזמנה ותוספת בצד.</div></div><div class="entry-price">החל מ־58₪</div></div></div>
-          </div>
+          <p>מכאן אפשר לפתוח כל מנה, לבחור שם למנה, התאמות מהירות, הערה והוספה לסל.</p>
+          
+<div class="entries" style="margin-top:14px">
+  <div class="entry-card garlic" onclick="openCombo('marseille')"><div class="entry-head"><div><div class="entry-title">🇫🇷🥑 מרסיי</div><div class="entry-desc">גוואקמולי, איולי שום משובח, רוטב שזיפים, בצל, חסה ואורז עשבי טיבול. עוף + צ׳יפס.</div></div><div class="entry-price">65₪</div></div></div>
+  <div class="entry-card spicy" onclick="openCombo('rio')"><div class="entry-head"><div><div class="entry-title">🔥🌶️ ריו — לאמיצים בלבד!</div><div class="entry-desc">גוואקמולי, סלסה חריפה, ברביקיו מעושן, סלט חריף, חסה, בצל ואורז עשבי טיבול. אנטריקוט + צ׳יפס.</div></div><div class="entry-price">65₪</div></div></div>
+  <div class="entry-card felipe" onclick="openCombo('philadelphia')"><div class="entry-head"><div><div class="entry-title">🗽🥬 פילדלפיה</div><div class="entry-desc">גוואקמולי, חסה, סלט ירקות, רוטב הבית, גבינה טבעונית ואורז עשבי טיבול. אנטריקוט + צ׳יפס.</div></div><div class="entry-price">66₪</div></div></div>
+</div>
+
         </div>
 
         <div class="clean-card" style="margin-top:14px">
@@ -520,8 +502,6 @@ text-shadow:0 0 10px rgba(255,178,26,.5);
           <p>אפשר להוסיף לצד הבוריטו או להזמין כתוספת לארוחה.</p>
           <div class="entries" style="margin-top:12px">
             <div class="feature-card" onclick="addSide('🍟 צ׳יפס',15)" style="cursor:pointer"><h3>🍟 צ׳יפס</h3><p>15₪</p></div>
-            <div class="feature-card" onclick="addSide('🥔 כדורי פירה',16)" style="cursor:pointer"><h3>🥔 כדורי פירה</h3><p>16₪</p></div>
-            <div class="feature-card" onclick="addSide('🧅 טבעות בצל',16)" style="cursor:pointer"><h3>🧅 טבעות בצל</h3><p>16₪</p></div>
           </div>
         </div>
       </section>
@@ -679,9 +659,7 @@ text-shadow:0 0 10px rgba(255,178,26,.5);
         <button class="close" onclick="finishBuildWithoutSides()">✕</button>
       </div>
       <div class="chips" style="display:grid;grid-template-columns:1fr;gap:10px">
-        <label class="radio-item" data-side="צ׳יפס|15"><div><strong>צ׳יפס</strong><span>תוספת פריכה בצד</span></div><strong>15₪</strong></label>
-        <label class="radio-item" data-side="כדורי פירה|16"><div><strong>כדורי פירה</strong><span>רך, חם וסוגר פינה</span></div><strong>16₪</strong></label>
-        <label class="radio-item" data-side="טבעות בצל|16"><div><strong>טבעות בצל</strong><span>קראנץ׳ טוב בצד</span></div><strong>16₪</strong></label>
+        <label class="radio-item" data-side="צ׳יפס|15"><div><strong>🍟 צ׳יפס</strong><span>תוספת פריכה וקלאסית בצד</span></div><strong>15₪</strong></label>
       </div>
       <div class="sheet-actions">
         <button class="btn btn-primary" onclick="finishBuildWithSides()">להוסיף ולהמשיך</button>
@@ -726,9 +704,9 @@ text-shadow:0 0 10px rgba(255,178,26,.5);
       💵 מזומן
     </button>
 
-    <button id="payCardBtn" class="btn btn-secondary" style="flex:1"
-      onclick="selectPayment('card')">
-      💳 אשראי
+    <button id="payBitBtn" class="btn btn-secondary" style="flex:1"
+      onclick="selectPayment('bit')">
+      <span style="font-weight:900;letter-spacing:.3px">💙 bit</span>
     </button>
 
   </div>
@@ -809,26 +787,26 @@ text-shadow:0 0 10px rgba(255,178,26,.5);
     });
 
     const comboData = {
-      garlic: {
-        name:'בוריטו שום', price:63,
-        desc:'גוואקמולי, סלט חריף, איולי שום משובח, חסה, אורז מומלץ. עוף / אנטריקוט. מוגש עם צ׳יפס.',
-        meat:['עוף','אנטריקוט'],
-        changes:['בלי בצל','בלי חסה','אורז בצד','יותר איולי שום'],
-        emoji:'🧄'
-      },
-      spicy: {
-        name:'בוריטו חריף', price:63,
-        desc:'גוואקמולי, סלט חריף, סלסה חריפה, שזיפים, אורז, חסה, בצל. עוף / אנטריקוט. מוגש עם צ׳יפס.',
-        meat:['עוף','אנטריקוט'],
-        changes:['פחות חריף','בלי בצל','יותר סלסה חריפה','בלי שזיפים'],
-        emoji:'🌶️'
-      },
-      felipe: {
-        name:'מה שפליפה אוהב', price:63,
-        desc:'גוואקמולי, סלט ירקות, סלט חריף, איולי שום, סלסה חריפה, חסה, בצל, שזיפים ואורז. עוף. מוגש עם צ׳יפס.',
+      marseille: {
+        name:'מרסיי', price:65,
+        desc:'גוואקמולי, איולי שום משובח, רוטב שזיפים, בצל, חסה ואורז עשבי טיבול. עוף. בכל מנה מגיע צ׳יפס.',
         meat:['עוף'],
-        changes:['בלי בצל','פחות חריף','בלי שזיפים','אורז בצד'],
-        emoji:'🌯'
+        changes:['בלי בצל','בלי חסה','אורז בצד','רוטב שזיפים בצד'],
+        emoji:'🇫🇷🥑'
+      },
+      rio: {
+        name:'ריו — לאמיצים בלבד!', price:65,
+        desc:'גוואקמולי, סלסה חריפה, ברביקיו מעושן, סלט חריף, חסה, בצל ואורז עשבי טיבול. אנטריקוט. בכל מנה מגיע צ׳יפס.',
+        meat:['אנטריקוט'],
+        changes:['פחות חריף','בלי בצל','ברביקיו בצד','בלי סלט חריף'],
+        emoji:'🔥🌶️'
+      },
+      philadelphia: {
+        name:'פילדלפיה', price:66,
+        desc:'גוואקמולי, חסה, סלט ירקות, רוטב הבית, גבינה טבעונית ואורז עשבי טיבול. אנטריקוט. בכל מנה מגיע צ׳יפס.',
+        meat:['אנטריקוט'],
+        changes:['בלי חסה','בלי סלט ירקות','רוטב הבית בצד','בלי גבינה טבעונית'],
+        emoji:'🗽🥬'
       }
     };
 
@@ -1118,34 +1096,6 @@ text-shadow:0 0 10px rgba(255,178,26,.5);
           </div>
         `;
       }).join('');
-
-
-
-     // תשלום באשראי
-if(paymentMethod === "card"){
-  const totals = calculateTotals(true);
-  const total = Math.round(totals.finalTotal);
-
-  const tempOrderId = Date.now();
-
-  // שמירת הזמנה זמנית
-  localStorage.setItem("pendingOrder", JSON.stringify({
-    id: tempOrderId,
-    cart,
-    profile,
-    totals
-  }));
-
-  // ⚠️ תחליף ללינק סליקה אמיתי בהמשך
-  const paymentUrl =
-    "https://example-payment-link.com?amount=" + total +
-    "&success_url=" + window.location.origin + "/?payment=success" +
-    "&fail_url=" + window.location.origin + "/?payment=fail";
-
-  window.location.href = paymentUrl;
-  return;
-}
-      
       const totals = calculateTotals(true);
       subtotalEl.textContent = Math.round(totals.subtotal) + '₪';
       if(totals.couponDiscount > 0){
@@ -1348,83 +1298,75 @@ bar.style.width = percent + "%";
       messageBox.style.display = 'block';
       messageBox.innerText = 'שולחים את ההזמנה...';
 
-      try {
-        if(!cart.length){
-          alert('הסל ריק כרגע');
-          return;
+      if(!cart.length){
+        alert('הסל ריק כרגע');
+        return;
+      }
+      if(!profile){
+        closeModal('cartModal');
+        openModal('authModal');
+        alert('צריך להתחבר לפני הזמנה');
+        return;
+      }
+
+      const blockedPhones = [
+        "0501234567",
+        "0529876543"
+      ];
+
+      if(blockedPhones.includes(profile.contact)){
+        alert("❌ לא ניתן לבצע הזמנה ממספר זה");
+        return;
+      }
+
+      const totals = calculateTotals(true);
+      const total = Math.round(totals.finalTotal);
+      const subtotal = Math.round(totals.subtotal);
+      const couponDiscount = Math.round(totals.couponDiscount);
+      const pointsDiscount = Math.round(totals.pointsDiscount);
+      const earnedPoints = Math.round(totals.earnedPoints);
+
+      orderNumber++;
+
+      const lines = [];
+      lines.push('מספר הזמנה: #' + orderNumber);
+      lines.push('התקבלה הזמנה חדשה מאתר פליפה בוריטו');
+      lines.push('');
+      lines.push(`שם: ${profile.name}`);
+      lines.push(`טלפון: ${profile.contact}`);
+      lines.push(`כתובת: ${profile.address || 'לא הוזנה'}`);
+      lines.push('');
+      lines.push(`אמצעי תשלום: ${paymentMethod === 'bit' ? 'bit' : 'מזומן'}`);
+      lines.push('');
+      lines.push('פרטי הזמנה:');
+      cart.forEach((item,i)=>{
+        lines.push(`${i+1}. ${item.name} - ${item.price}₪`);
+        if(item.details && item.details.length){
+          lines.push('   ' + item.details.join(' | '));
         }
-        if(!profile){
-          closeModal('cartModal');
-          openModal('authModal');
-          alert('צריך להתחבר לפני הזמנה');
-          return;
-        }
+      });
+      lines.push('');
+      lines.push(`סה"כ: ${subtotal}₪`);
+      if(couponDiscount > 0) lines.push(`קופון: -${couponDiscount}₪`);
+      if(pointsDiscount > 0) lines.push(`נקודות: -${pointsDiscount}₪`);
+      lines.push(`לתשלום: ${total}₪`);
+      lines.push(`נקודות חדשות: ${earnedPoints}`);
 
-        // חסימת לקוחות לפי טלפון
-const blockedPhones = [
-  "0501234567",
-  "0529876543"
-];
+      let emailSent = false;
+      let orderSaved = false;
+      let lastErrorMessage = '';
 
-// חסימת לקוחות לפי טלפון
-if(blockedPhones.includes(profile.contact)){
-  alert("❌ לא ניתן לבצע הזמנה ממספר זה");
-  return;
-}
+      try{
+        await sendOrderEmail(lines, total);
+        emailSent = true;
+      }catch(e){
+        console.log("Email failed:", e);
+        lastErrorMessage = e?.message || 'שגיאה בשליחת המייל';
+      }
 
-// ===== PAYMENT CHECK =====
-if(paymentMethod === "card"){
-  alert("מעביר לתשלום..."); // לבדיקה
-
-  const totals = calculateTotals(true);
-  const total = Math.round(totals.finalTotal);
-
-  // זמני לבדיקה
-  window.location.href = "https://google.com";
-
-  return; // 🔥 הכי חשוב
-}
-
-        const totals = calculateTotals(true);
-        const total = Math.round(totals.finalTotal);
-        const subtotal = Math.round(totals.subtotal);
-        const couponDiscount = Math.round(totals.couponDiscount);
-        const pointsDiscount = Math.round(totals.pointsDiscount);
-        const earnedPoints = Math.round(totals.earnedPoints);
-
-        orderNumber++;
-
-        const lines = [];
-        lines.push('מספר הזמנה: #' + orderNumber);
-        lines.push('התקבלה הזמנה חדשה מאתר פליפה בוריטו');
-        lines.push('');
-        lines.push(`שם: ${profile.name}`);
-        lines.push(`טלפון: ${profile.contact}`);
-        lines.push(`כתובת: ${profile.address || 'לא הוזנה'}`);
-        lines.push('');
-        lines.push('פרטי הזמנה:');
-        cart.forEach((item,i)=>{
-          lines.push(`${i+1}. ${item.name} - ${item.price}₪`);
-          if(item.details && item.details.length){
-            lines.push('   ' + item.details.join(' | '));
-          }
-        });
-        lines.push('');
-        lines.push(`סה"כ: ${subtotal}₪`);
-        if(couponDiscount > 0) lines.push(`קופון: -${couponDiscount}₪`);
-        if(pointsDiscount > 0) lines.push(`נקודות: -${pointsDiscount}₪`);
-        lines.push(`לתשלום: ${total}₪`);
-        lines.push(`נקודות חדשות: ${earnedPoints}`);
-
-        try{
-  await sendOrderEmail(lines, total);
-}catch(e){
-  console.log("Email failed but continuing:", e);
-}
-
-await saveOrder({
+      try{
+        await saveOrder({
           order_number: orderNumber,
-        
           customer_name: profile.name,
           customer_contact: profile.contact,
           customer_address: profile.address || '',
@@ -1434,44 +1376,55 @@ await saveOrder({
           coupon_discount: couponDiscount,
           points_redeemed: pointsDiscount,
           final_total: total,
+          payment_method: paymentMethod,
           earned_points: earnedPoints,
           created_at: new Date().toISOString()
         });
+        orderSaved = true;
+      }catch(e){
+        console.error("Save order failed:", e);
+        lastErrorMessage = e?.message || 'שגיאה בשמירת ההזמנה';
+      }
 
-        userPoints = Math.max(0, userPoints - pointsDiscount) + earnedPoints;
+      if(!emailSent && !orderSaved){
+        messageBox.className = 'message-box error';
+        messageBox.innerText = "❌ ההזמנה לא נשלחה. " + (lastErrorMessage || "נסה שוב");
+        return;
+      }
 
-        const summary = `${cart.length} פריטים • ${total}₪`;
-        const date = new Date().toLocaleString('he-IL');
-        orders.push({
-          orderNumber,
-          summary,
-          total,
-          subtotal,
-          date,
-          earnedPoints,
-          items: JSON.parse(JSON.stringify(cart))
-        });
+      userPoints = Math.max(0, userPoints - pointsDiscount) + earnedPoints;
 
-        cart.splice(0, cart.length);
-        activeCoupon = null;
-        pointsRedeemed = 0;
-        document.getElementById('couponInput').value = '';
-        document.getElementById('couponMessage').innerText = '';
-        persist();
-        updateCart();
-        renderHistory();
-        renderProfile();
-        updatePointsDisplay();
+      const summary = `${cart.length} פריטים • ${total}₪`;
+      const date = new Date().toLocaleString('he-IL');
+      orders.push({
+        orderNumber,
+        summary,
+        total,
+        subtotal,
+        date,
+        earnedPoints,
+        paymentMethod,
+        items: JSON.parse(JSON.stringify(cart))
+      });
 
+      cart.splice(0, cart.length);
+      activeCoupon = null;
+      pointsRedeemed = 0;
+      document.getElementById('couponInput').value = '';
+      document.getElementById('couponMessage').innerText = '';
+      persist();
+      updateCart();
+      renderHistory();
+      renderProfile();
+      updatePointsDisplay();
+
+      if(emailSent && orderSaved){
         messageBox.className = 'message-box success';
         messageBox.innerText = `✅ ההזמנה #${orderNumber} נשלחה בהצלחה! קיבלת ${earnedPoints} נקודות.`;
-      } catch(error){
-         console.error("ORDER ERROR:", error);
-
-  messageBox.className = 'message-box error';
-  messageBox.innerText =
-  "❌ ההזמנה נכשלה: " + (error?.message || "שגיאה לא ידועה");
-}
+      } else if(emailSent || orderSaved){
+        messageBox.className = 'message-box success';
+        messageBox.innerText = `✅ ההזמנה #${orderNumber} התקבלה. ייתכן שחלק מההתראות לא נשמרו, אבל ההזמנה כן הגיעה.`;
+      }
     }
 
 let paymentMethod = "cash";
@@ -1480,20 +1433,20 @@ function selectPayment(method){
   paymentMethod = method;
 
   const cashBtn = document.getElementById("payCashBtn");
-  const cardBtn = document.getElementById("payCardBtn");
+  const bitBtn = document.getElementById("payBitBtn");
 
   // איפוס
   cashBtn.style.transform = "scale(1)";
-  cardBtn.style.transform = "scale(1)";
+  bitBtn.style.transform = "scale(1)";
   cashBtn.style.background = "rgba(255,255,255,.05)";
-  cardBtn.style.background = "rgba(255,255,255,.05)";
+  bitBtn.style.background = "rgba(255,255,255,.05)";
   cashBtn.style.border = "1px solid var(--line)";
-  cardBtn.style.border = "1px solid var(--line)";
+  bitBtn.style.border = "1px solid var(--line)";
   cashBtn.style.color = "white";   // 🔥 זה התיקון
-  cardBtn.style.color = "white";   // 🔥 זה התיקון
+  bitBtn.style.color = "white";   // 🔥 זה התיקון
 
   // בחירה
-  const activeBtn = method === "cash" ? cashBtn : cardBtn;
+  const activeBtn = method === "cash" ? cashBtn : bitBtn;
 
   activeBtn.style.transform = "scale(1.05)";
   activeBtn.style.background = "linear-gradient(90deg,var(--gold),var(--gold2))";
@@ -1501,48 +1454,11 @@ function selectPayment(method){
   activeBtn.style.border = "none";
 }
     
-function handlePaymentReturn(){
-  const params = new URLSearchParams(window.location.search);
-  const status = params.get("payment");
-
-  if(!status) return;
-
-  const pending = JSON.parse(localStorage.getItem("pendingOrder") || "null");
-  if(!pending) return;
-
-  if(status === "success"){
-    finalizeOrderAfterPayment(pending);
-    alert("✅ התשלום הצליח! ההזמנה התקבלה");
-  } else {
-    alert("❌ התשלום נכשל, ההזמנה לא נשמרה");
-  }
-
-  localStorage.removeItem("pendingOrder");
-  window.history.replaceState({}, document.title, window.location.pathname);
-}
-
-    async function finalizeOrderAfterPayment(pending){
-  const { cart, profile, totals } = pending;
-
-  const total = Math.round(totals.finalTotal);
-
-  await saveOrder({
-    order_number: Date.now(),
-    customer_name: profile.name,
-    customer_contact: profile.contact,
-    customer_address: profile.address || '',
-    items: cart,
-    final_total: total,
-    payment_method: "card",
-    created_at: new Date().toISOString()
-  });
-}
     
     updateCart();
     renderProfile();
     renderHistory();
     updatePointsDisplay();
-    handlePaymentReturn();
     
   </script>
 </body>
