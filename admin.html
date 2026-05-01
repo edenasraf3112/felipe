@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Felipe Admin</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body style="font-family:Arial;background:#111;color:white;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center;direction:rtl;">
+  <div>
+    <h1>פאנל ניהול Felipe</h1>
+    <h2 id="status">טוען...</h2>
+
+    <button onclick="setStoreStatus(true)" style="padding:14px 24px;margin:8px;font-size:18px;">פתח חנות ✅</button>
+    <button onclick="setStoreStatus(false)" style="padding:14px 24px;margin:8px;font-size:18px;">סגור חנות ❌</button>
+  </div>
+
+  <script>
+    const SUPABASE_URL = "https://fzxjwqxcoookxzkbhwwj.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ6eGp3cXhjb29va3h6a2Jod3dqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwOTc3NTUsImV4cCI6MjA4ODY3Mzc1NX0.JHxuKmHAUdb0tfjOdt3HlvnmI74ig9lFA44LmZSvRMM";
+
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    async function loadStatus() {
+      const { data } = await supabaseClient
+        .from('site_settings')
+        .select('is_open')
+        .eq('id', 'main')
+        .single();
+
+      document.getElementById('status').textContent =
+        data?.is_open ? 'החנות פתוחה ✅' : 'החנות סגורה ❌';
+    }
+
+    async function setStoreStatus(isOpen) {
+      await supabaseClient
+        .from('site_settings')
+        .update({ is_open: isOpen, updated_at: new Date().toISOString() })
+        .eq('id', 'main');
+
+      loadStatus();
+    }
+
+    loadStatus();
+  </script>
+</body>
+</html>
