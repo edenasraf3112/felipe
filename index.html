@@ -748,6 +748,29 @@ text-shadow:0 0 10px rgba(255,178,26,.5);
     emailjs.init(EMAILJS_PUBLIC_KEY);
     const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+async function checkStoreStatus() {
+  const { data, error } = await supabaseClient
+    .from('site_settings')
+    .select('is_open, closed_message')
+    .eq('id', 'main')
+    .single();
+
+  if (error || !data) return;
+
+  if (!data.is_open) {
+    document.body.innerHTML = `
+      <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;background:#111;color:white;font-family:Arial;padding:24px;direction:rtl;">
+        <div>
+          <h1>Felipe סגור כרגע</h1>
+          <p>${data.closed_message}</p>
+        </div>
+      </div>
+    `;
+  }
+}
+
+checkStoreStatus();
+    
     const BUSINESS_EMAIL = "felipesmashburrito@gmail.com";
     const loading = document.getElementById('loading');
     window.addEventListener('load', () => setTimeout(() => loading.classList.add('hidden'), 600));
