@@ -1638,18 +1638,6 @@ function showClosedOverlay(){
   overlay.style.justifyContent = 'center';
   overlay.style.padding = '20px';
 
-  overlay.innerHTML = `
-    <div style="width:min(430px,100%);padding:26px 22px;border-radius:30px;background:linear-gradient(180deg,#1b1311,#0b0808);border:1px solid rgba(255,255,255,.08);box-shadow:0 18px 50px rgba(0,0,0,.42);text-align:center;color:#f7f4ef">
-      <div style="font-size:44px;margin-bottom:10px">🚫</div>
-      <div style="font-size:28px;font-weight:900;margin-bottom:10px;color:#ffb21a">אנחנו סגורים כעת</div>
-      <div style="font-size:15px;line-height:1.7;color:#cfc4bb;white-space:pre-line">${getOpeningHoursText()}</div>
-      <div style="margin-top:18px;font-size:13px;color:#cfc4bb">נשמח לראות אותך כשהמטבח נפתח 🌯</div>
-    </div>
-  `;
-
-  document.body.appendChild(overlay);
-}
-
 window.addEventListener('load', () => {
   if(!isOpenNow()){
     showClosedOverlay();
