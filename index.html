@@ -755,6 +755,77 @@ const supabaseClient = window.supabase.createClient(
   SUPABASE_ANON_KEY
 );
 
+function showClosedScreen(message) {
+
+  document.body.innerHTML = `
+    <div style="
+      min-height:100vh;
+      width:100vw;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:
+        radial-gradient(circle at top, rgba(255,178,26,.10), transparent 35%),
+        #090707;
+      color:white;
+      font-family:Arial, Helvetica, sans-serif;
+      direction:rtl;
+      text-align:center;
+      padding:24px;
+    ">
+      <div style="
+        width:min(92vw,420px);
+        padding:34px 24px;
+        border-radius:28px;
+        background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+        border:1px solid rgba(255,255,255,.10);
+        box-shadow:0 20px 60px rgba(0,0,0,.45);
+      ">
+
+        <div style="font-size:42px;margin-bottom:14px;">🚫</div>
+
+        <h1 style="
+          margin:0 0 16px;
+          color:#ffb21a;
+          font-size:28px;
+          font-weight:900;
+        ">
+          אנחנו סגורים כעת
+        </h1>
+
+        <p style="
+          margin:0 0 20px;
+          color:#d8d0c8;
+          font-size:17px;
+          line-height:1.6;
+        ">
+          ${message || "נחזור בקרוב 🌯"}
+        </p>
+
+        <div style="
+          color:#cfc4bb;
+          font-size:16px;
+          line-height:1.7;
+        ">
+          <strong>שעות פתיחה:</strong><br>
+          חמישי 19:00–02:30<br>
+          שבת 20:00–02:30
+        </div>
+
+        <div style="
+          margin-top:24px;
+          color:#aaa;
+          font-size:14px;
+        ">
+          🌯 נשמח לראות אותך כשהמטבח נפתח
+        </div>
+
+      </div>
+    </div>
+  `;
+
+}
+    
 async function checkStoreStatus() {
 
   const { data, error } = await supabaseClient
