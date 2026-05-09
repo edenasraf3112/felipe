@@ -12,35 +12,91 @@
     <h1>פאנל ניהול Felipe</h1>
     <h2 id="status">טוען...</h2>
 
-    
-    <button onclick="setStoreStatus(true)" style="padding:14px 24px;margin:8px;font-size:18px;">פתח חנות ✅</button>
-    <button onclick="setStoreStatus(false)" style="padding:14px 24px;margin:8px;font-size:18px;">סגור חנות ❌</button>
+    <button onclick="setStoreStatus(true)" style="padding:14px 24px;margin:8px;font-size:18px;">
+      פתח חנות ✅
+    </button>
+
+    <button onclick="setStoreStatus(false)" style="padding:14px 24px;margin:8px;font-size:18px;">
+      סגור חנות ❌
+    </button>
+
+    <p id="debug" style="margin-top:20px;color:#aaa;font-size:14px;"></p>
   </div>
 
   <script>
     const SUPABASE_URL = "https://fzxjwqxcoookxzkbhwwj.supabase.co";
+
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ6eGp3cXhjb29va3h6a2Jod3dqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwOTc3NTUsImV4cCI6MjA4ODY3Mzc1NX0.JHxuKmHAUdb0tfjOdt3HlvnmI74ig9lFA44LmZSvRMM";
 
-    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_ANON_KEY
+    );
+
+    const statusEl = document.getElementById("status");
+    const debugEl = document.getElementById("debug");
 
     async function loadStatus() {
-      const { data } = await supabaseClient
-        .from('site_settings')
-        .select('is_open')
-        .eq('id', 'main')
+      statusEl.textContent = "בודק מצב חנות...";
+
+      const { data, error } = await supabaseClient
+        .from("site_settings")
+        .select("id, is_open, closed_message, updated_at")
+        .eq("id", "main")
         .single();
 
-      document.getElementById('status').textContent =
-        data?.is_open ? 'החנות פתוחה ✅' : 'החנות סגורה ❌';
+      console.log("ADMIN LOAD:", data, error);
+
+      if (error) {
+        statusEl.textContent = "שגיאה בטעינה ❌";
+        debugEl.textContent = error.message;
+        return;
+      }
+
+      if (!data) {
+        statusEl.textContent = "לא נמצאה שורה main ❌";
+        debugEl.textContent = "צריך ליצור/לעדכן שורה בטבלה site_settings";
+        return;
+      }
+
+      statusEl.textContent =
+        data.is_open === true ? "החנות פתוחה ✅" : "החנות סגורה ❌";
+
+      debugEl.textContent =
+        "עודכן לאחרונה: " + (data.updated_at || "אין נתון");
     }
 
     async function setStoreStatus(isOpen) {
-      await supabaseClient
-        .from('site_settings')
-        .update({ is_open: isOpen, updated_at: new Date().toISOString() })
-        .eq('id', 'main');
+      statusEl.textContent = isOpen ? "פותח חנות..." : "סוגר חנות...";
+      debugEl.textContent = "";
 
-      loadStatus();
+      const { data, error } = await supabaseClient
+        .from("site_settings")
+        .upsert({
+          id: "main",
+          is_open: isOpen,
+          closed_message: "אנחנו סגורים כרגע, נחזור בקרוב 🌯",
+          updated_at: new Date().toISOString()
+        })
+        .select("id, is_open, closed_message, updated_at")
+        .single();
+
+      console.log("ADMIN UPDATE:", data, error);
+
+      if (error) {
+        statusEl.textContent = "שגיאה בעדכון ❌";
+        debugEl.textContent = error.message;
+        alert("שגיאה בעדכון: " + error.message);
+        return;
+      }
+
+      statusEl.textContent =
+        data.is_open === true ? "החנות פתוחה ✅" : "החנות סגורה ❌";
+
+      debugEl.textContent =
+        "עודכן לאחרונה: " + (data.updated_at || "אין נתון");
+
+      alert(data.is_open === true ? "החנות נפתחה ✅" : "החנות נסגרה ❌");
     }
 
     loadStatus();
