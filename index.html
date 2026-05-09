@@ -1590,8 +1590,8 @@ function selectPayment(method){
   bitBtn.style.background = "rgba(255,255,255,.05)";
   cashBtn.style.border = "1px solid var(--line)";
   bitBtn.style.border = "1px solid var(--line)";
-  cashBtn.style.color = "white";   // 🔥 זה התיקון
-  bitBtn.style.color = "white";   // 🔥 זה התיקון
+  cashBtn.style.color = "white";
+  bitBtn.style.color = "white";
 
   // בחירה
   const activeBtn = method === "cash" ? cashBtn : bitBtn;
@@ -1601,54 +1601,12 @@ function selectPayment(method){
   activeBtn.style.color = "#1f1306";
   activeBtn.style.border = "none";
 }
-    
-    
-function isOpenNow(){
-  const now = new Date();
-  const day = now.getDay(); // 0=Sun ... 6=Sat
-  const time = now.getHours() + (now.getMinutes() / 60);
 
-  // Thursday 19:00 until Friday 02:30
-  if(day === 4 && time >= 19) return true;
-  if(day === 5 && time <= 2.5) return true;
+updateCart();
+renderProfile();
+renderHistory();
+updatePointsDisplay();
 
-  // Saturday 20:00 until Sunday 02:30
-  if(day === 6 && time >= 20) return true;
-  if(day === 0 && time <= 2.5) return true;
-
-  return false;
-}
-
-function getOpeningHoursText(){
-  return 'שעות פתיחה:\nחמישי 19:00–02:30\nשבת 20:00–02:30';
-}
-
-function showClosedOverlay(){
-  if(document.getElementById('closedOverlay')) return;
-
-  const overlay = document.createElement('div');
-  overlay.id = 'closedOverlay';
-  overlay.style.position = 'fixed';
-  overlay.style.inset = '0';
-  overlay.style.zIndex = '9999';
-  overlay.style.background = 'rgba(9,7,7,.96)';
-  overlay.style.backdropFilter = 'blur(10px)';
-  overlay.style.display = 'flex';
-  overlay.style.alignItems = 'center';
-  overlay.style.justifyContent = 'center';
-  overlay.style.padding = '20px';
-
-window.addEventListener('load', () => {
-  if(!isOpenNow()){
-    showClosedOverlay();
-  }
-});
-
-    updateCart();
-    renderProfile();
-    renderHistory();
-    updatePointsDisplay();
-    
-  </script>
+</script>
 </body>
 </html>
