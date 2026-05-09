@@ -756,42 +756,61 @@ const supabaseClient = window.supabase.createClient(
 );
 
 async function checkStoreStatus() {
-
   const { data, error } = await supabaseClient
-    .from('site_settings')
-    .select('is_open, closed_message')
-    .eq('id', 'main')
+    .from("site_settings")
+    .select("mode, closed_message")
+    .eq("id", "main")
     .single();
 
   console.log("STORE STATUS:", data, error);
 
-  if (error || !data) return;
-
-  if (!data.is_open) {
-
-    document.body.innerHTML = `
-      <div style="
-        min-height:100vh;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        text-align:center;
-        background:#111;
-        color:white;
-        font-family:Arial;
-        padding:24px;
-        direction:rtl;
-      ">
-        <div>
-          <h1>Felipe סגור כרגע ❌</h1>
-          <p>${data.closed_message || 'נחזור בקרוב'}</p>
-        </div>
-      </div>
-    `;
-
+  if (error || !data) {
+    console.error("Store status error:", error);
+    return;
   }
+
+  const mode = data.mode || "auto";
+
+  // פתוח בכוח דרך האדמין
+  if (mode === "open") {
+    return;
+  }
+
+  // סגור בכוח דרך האדמין
+  if (mode === "closed") {
+    showClosedScreen(data.closed_message);
+    return;
+  }
+
+  // מצב אוטומטי לפי שעות
+if (mode === "auto") {
+
+  if (!isStoreOpenByHours()) {
+    showClosedScreen(data.closed_message);
+    return;
+  }
+
 }
 
+function isStoreOpenByHours() {
+  const now = new Date();
+
+  const day = now.getDay();
+  const hour = now.getHours();
+  const minute = now.getMinutes();
+
+  const currentMinutes = hour * 60 + minute;
+
+  // חמישי 19:00 עד שישי 02:30
+  if (day === 4 && currentMinutes >= 19 * 60) return true;
+  if (day === 5 && currentMinutes <= 2 * 60 + 30) return true;
+
+  // שבת 20:00 עד ראשון 02:30
+  if (day === 6 && currentMinutes >= 20 * 60) return true;
+  if (day === 0 && currentMinutes <= 2 * 60 + 30) return true;
+
+  return false;
+}
 checkStoreStatus();
     
     const BUSINESS_EMAIL = "felipesmashburrito@gmail.com";
