@@ -756,6 +756,7 @@ const supabaseClient = window.supabase.createClient(
 );
 
 async function checkStoreStatus() {
+
   const { data, error } = await supabaseClient
     .from("site_settings")
     .select("mode, closed_message")
@@ -771,28 +772,31 @@ async function checkStoreStatus() {
 
   const mode = data.mode || "auto";
 
-  // פתוח בכוח דרך האדמין
+  // פתוח תמיד
   if (mode === "open") {
     return;
   }
 
-  // סגור בכוח דרך האדמין
+  // סגור תמיד
   if (mode === "closed") {
     showClosedScreen(data.closed_message);
     return;
   }
 
-  // מצב אוטומטי לפי שעות
-if (mode === "auto") {
+  // אוטומטי לפי שעות
+  if (mode === "auto") {
 
-  if (!isStoreOpenByHours()) {
-    showClosedScreen(data.closed_message);
-    return;
+    if (!isStoreOpenByHours()) {
+      showClosedScreen(data.closed_message);
+      return;
+    }
+
   }
 
 }
 
 function isStoreOpenByHours() {
+
   const now = new Date();
 
   const day = now.getDay();
@@ -811,6 +815,7 @@ function isStoreOpenByHours() {
 
   return false;
 }
+
 checkStoreStatus();
     
     const BUSINESS_EMAIL = "felipesmashburrito@gmail.com";
