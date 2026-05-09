@@ -739,33 +739,56 @@ text-shadow:0 0 10px rgba(255,178,26,.5);
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    const EMAILJS_PUBLIC_KEY = "I0hyyOW-jFMndYu7d";
-    const EMAILJS_SERVICE_ID = "service_u52qknt";
-    const EMAILJS_TEMPLATE_ID = "template_tnk7q7j";
-    const SUPABASE_URL = "https://fzxjwqxcoookxzkbhwwj.supabase.co";
-    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ6eGp3cXhjb29va3h6a2Jod3dqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwOTc3NTUsImV4cCI6MjA4ODY3Mzc1NX0.JHxuKmHAUdb0tfjOdt3HlvnmI74ig9lFA44LmZSvRMM";
+   const EMAILJS_PUBLIC_KEY = "I0hyyOW-jFMndYu7d";
+const EMAILJS_SERVICE_ID = "service_u52qknt";
+const EMAILJS_TEMPLATE_ID = "template_tnk7q7j";
 
-    emailjs.init(EMAILJS_PUBLIC_KEY);
-    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const SUPABASE_URL = "https://fzxjwqxcoookxzkbhwwj.supabase.co";
+
+const SUPABASE_ANON_KEY =
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ6eGp3cXhjb29va3h6a2Jod3dqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwOTc3NTUsImV4cCI6MjA4ODY3Mzc1NX0.JHxuKmHAUdb0tfjOdt3HlvnmI74ig9lFA44LmZSvRMM";
+
+emailjs.init(EMAILJS_PUBLIC_KEY);
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
 
 async function checkStoreStatus() {
+
   const { data, error } = await supabaseClient
     .from('site_settings')
     .select('is_open, closed_message')
     .eq('id', 'main')
     .single();
 
+  console.log("STORE STATUS:", data, error);
+
   if (error || !data) return;
 
   if (!data.is_open) {
+
     document.body.innerHTML = `
-      <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;background:#111;color:white;font-family:Arial;padding:24px;direction:rtl;">
+      <div style="
+        min-height:100vh;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        text-align:center;
+        background:#111;
+        color:white;
+        font-family:Arial;
+        padding:24px;
+        direction:rtl;
+      ">
         <div>
-          <h1>Felipe סגור כרגע</h1>
-          <p>${data.closed_message}</p>
+          <h1>Felipe סגור כרגע ❌</h1>
+          <p>${data.closed_message || 'נחזור בקרוב'}</p>
         </div>
       </div>
     `;
+
   }
 }
 
