@@ -809,7 +809,7 @@ function showClosedScreen(message) {
         ">
           <strong>שעות פתיחה:</strong><br>
           חמישי 19:00–02:30<br>
-          שבת 20:00–02:30
+      
         </div>
 
         <div style="
@@ -879,10 +879,6 @@ function isStoreOpenByHours() {
   // חמישי 19:00 עד שישי 02:30
   if (day === 4 && currentMinutes >= 19 * 60) return true;
   if (day === 5 && currentMinutes <= 2 * 60 + 30) return true;
-
-  // שבת 20:00 עד ראשון 02:30
-  if (day === 6 && currentMinutes >= 20 * 60) return true;
-  if (day === 0 && currentMinutes <= 2 * 60 + 30) return true;
 
   return false;
 }
@@ -1442,7 +1438,7 @@ bar.style.width = percent + "%";
       if(!isOpenNow()){
         messageBox.className = 'message-box error';
         messageBox.style.display = 'block';
-        messageBox.innerText = '❌ אנחנו סגורים כרגע. שעות פתיחה: חמישי 19:00–02:30 | שבת 20:00–02:30';
+        messageBox.innerText = '❌אנחנו סגורים כרגע. שעות פתיחה: חמישי 19:00–02:30';
         return;
       }
 
