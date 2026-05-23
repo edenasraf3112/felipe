@@ -1429,6 +1429,10 @@ bar.style.width = percent + "%";
   if(error) throw error;
 }
 
+    function isOpenNow(){
+  return isStoreOpenByHours();
+}
+    
     async function checkout(){
       const messageBox = document.getElementById('checkoutMessage');
       messageBox.className = 'message-box info';
