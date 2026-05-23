@@ -1986,8 +1986,11 @@ animateToCart(el);
   renderProfile();
   updatePointsDisplay();
 
+  setTimeout(()=>{
   messageBox.className = 'message-box success';
+  messageBox.style.display = 'block';
   messageBox.innerText = `✅ ההזמנה #${orderNumber} נשלחה בהצלחה! קיבלת ${earnedPoints} נקודות.`;
+},100);
 }
 
 let paymentMethod = "cash";
