@@ -1530,13 +1530,18 @@ closeModal('productModal');
       cleanupBuildFlow();
     }
     function cleanupBuildFlow(){
-      pendingBuild = null;
-      document.querySelectorAll('[data-side].active').forEach(el=>el.classList.remove('active'));
-      closeModal('sidesModal');
-      persist();
-      updateCart();
-animateToCart(el);
-    }
+  pendingBuild = null;
+
+  document
+    .querySelectorAll('[data-side].active')
+    .forEach(el=>el.classList.remove('active'));
+
+  closeModal('sidesModal');
+
+  persist();
+  updateCart();
+  animateToCart(document.getElementById('cartFab'));
+}
 
     function calculateTotals(includeEarned=true){
       const subtotal = cart.reduce((sum,item) => sum + Number(item.price || 0) * Number(item.qty || 1), 0);
