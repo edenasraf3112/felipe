@@ -1213,13 +1213,6 @@ document.getElementById('cartFab').addEventListener('click', ()=>{
   openModal('upsellModal');
 });
 
-  openModal('cartModal');
-
-  setTimeout(()=>{
-    openModal('upsellModal');
-  },250);
-
-});
     document.getElementById('authOpen').addEventListener('click', ()=>openModal('authModal'));
 
     function openModal(id){ document.getElementById(id).classList.add('open'); }
