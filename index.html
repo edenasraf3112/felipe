@@ -813,7 +813,7 @@ text-shadow:0 0 10px rgba(255,178,26,.5);
       <div class="field"><label>שם למנה</label><input class="input" id="productCustomName" placeholder="למשל: עדן / אמא / בלי חריף"></div>
       <div class="field"><label>הערה להזמנה</label><input class="input" id="productNote" placeholder="למשל: בלי בצל / רוטב בצד"></div>
       <div class="sheet-actions">
-        <button class="btn btn-primary" onclick="addCurrentProduct()">הוסף לסל</button>
+        <button class="btn btn-primary" onclick="addCurrentProduct(this)">הוסף לסל</button>
         <div class="sheet-price" id="productPrice">0₪</div>
       </div>
     </div>
@@ -1478,7 +1478,7 @@ function openCombo(key){
       openModal('productModal');
     }
 
-    function addCurrentProduct(){
+    function addCurrentProduct(el){
       const note = document.getElementById('productNote').value.trim();
       const customName = document.getElementById('productCustomName').value.trim();
       if(currentProduct.type==='combo'){
@@ -1492,7 +1492,7 @@ function openCombo(key){
         });
         persist();
 updateCart();
-animateToCart();
+animateToCart(el);
 closeModal('productModal');
       } else {
         const meat = getActiveRadio('build-meat');
@@ -1534,7 +1534,7 @@ closeModal('productModal');
       closeModal('sidesModal');
       persist();
       updateCart();
-      animateToCart();
+animateToCart(el);
     }
 
     function calculateTotals(includeEarned=true){
@@ -1627,7 +1627,7 @@ function quickAddUpsell(name, price, el){
 
   persist();
   updateCart();
-  animateToCart();
+animateToCart(el);
 
   if(navigator.vibrate){
     navigator.vibrate([60, 40, 80]);
@@ -1670,7 +1670,7 @@ function removeFromCart(index){
   cart.splice(index,1);
   persist();
   updateCart();
-  animateToCart();
+  animateToCart(el);
 }
 
 function loginOrRegister(){
@@ -1739,7 +1739,7 @@ function updatePointsDisplay(){
       renderProfile();
       renderHistory();
       updateCart();
-      animateToCart();
+      animateToCart(el);
     }
 
     function clearProfile(){
@@ -1752,7 +1752,7 @@ function updatePointsDisplay(){
       renderHistory();
       updatePointsDisplay();
       updateCart();
-      animateToCart();
+animateToCart(el);
     }
 
     function toggleClubForm(){
@@ -1824,7 +1824,7 @@ function updatePointsDisplay(){
       cart.splice(0, cart.length, ...JSON.parse(JSON.stringify(order.items)));
       persist();
       updateCart();
-      animateToCart();
+animateToCart(el);
       openModal('cartModal');
       
     }
@@ -1971,7 +1971,7 @@ function updatePointsDisplay(){
 
   persist();
   updateCart();
-  animateToCart();
+animateToCart(el);
   renderHistory();
   renderProfile();
   updatePointsDisplay();
