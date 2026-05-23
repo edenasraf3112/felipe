@@ -1493,8 +1493,12 @@ function openCombo(key){
         });
         persist();
 updateCart();
+
 animateToCart(el);
-closeModal('productModal');
+
+setTimeout(()=>{
+  closeModal('productModal');
+},250);
       } else {
         const meat = getActiveRadio('build-meat');
         const match = buildData.meats.find(x => x[0]===meat) || buildData.meats[0];
