@@ -1496,34 +1496,72 @@ document.getElementById('cartFab').addEventListener('click', ()=>{
     }
 
     function updateCart(){
-      const wrap = document.getElementById('cartItems');
-      const count = document.getElementById('cartCount');
-      const subtotalEl = document.getElementById('cartSubtotal');
-      const discountEl = document.getElementById('couponDiscount');
-      const couponRow = document.getElementById('couponRow');
-      const pointsRow = document.getElementById('pointsRow');
-      const pointsDiscountEl = document.getElementById('pointsDiscount');
-      const totalEl = document.getElementById('cartTotal');
-      const pointsAvailableEl = document.getElementById('cartPointsAvailable');
-      const earnedPreviewEl = document.getElementById('pointsEarnedPreview');
+  const wrap = document.getElementById('cartItems');
+  const count = document.getElementById('cartCount');
+  const subtotalEl = document.getElementById('cartSubtotal');
+  const discountEl = document.getElementById('couponDiscount');
+  const couponRow = document.getElementById('couponRow');
+  const pointsRow = document.getElementById('pointsRow');
+  const pointsDiscountEl = document.getElementById('pointsDiscount');
+  const totalEl = document.getElementById('cartTotal');
+  const pointsAvailableEl = document.getElementById('cartPointsAvailable');
+  const earnedPreviewEl = document.getElementById('pointsEarnedPreview');
 
-      count.textContent = cart.length;
-      pointsAvailableEl.textContent = (userPoints || 0) + ' נקודות';
+  count.textContent = cart.length;
+  pointsAvailableEl.textContent = (userPoints || 0) + ' נקודות';
 
-      if(cart.length === 0){
-        wrap.innerHTML = '<div class="clean-card"><p style="margin:0">הסל עדיין ריק.</p></div>';
-        subtotalEl.textContent = '0₪';
-        discountEl.textContent = '0₪';
-        pointsDiscountEl.textContent = '0₪';
-        totalEl.textContent = '0₪';
-        couponRow.style.display = 'none';
-        pointsRow.style.display = 'none';
-        earnedPreviewEl.textContent = '0 נקודות';
-        return;
-      }
+  if(cart.length === 0){
+    wrap.innerHTML = '<div class="clean-card"><p style="margin:0">הסל עדיין ריק.</p></div>';
+    subtotalEl.textContent = '0₪';
+    discountEl.textContent = '0₪';
+    pointsDiscountEl.textContent = '0₪';
+    totalEl.textContent = '0₪';
+    couponRow.style.display = 'none';
+    pointsRow.style.display = 'none';
+    earnedPreviewEl.textContent = '0 נקודות';
+    return;
+  }
+
+  wrap.innerHTML = cart.map((item,index)=>{
+    const price = Number(item.price || 0);
+    const qty = item.qty || 1;
+    const details = item.details && item.details.length ? item.details.join(' • ') : '';
+    return `
+      <div class="cart-item">
+        <div>
+          <div class="cart-name">${item.name}</div>
+          ${details ? `<div class="cart-sub">${details}</div>` : ''}
+        </div>
+        <div style="text-align:left">
+          <div class="entry-price">${price * qty}₪</div>
+          <button class="mini-btn mini-secondary" style="margin-top:8px" onclick="removeFromCart(${index})">הסר</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  const totals = calculateTotals(true);
+  subtotalEl.textContent = Math.round(totals.subtotal) + '₪';
+
+  if(totals.couponDiscount > 0){
+    couponRow.style.display = 'flex';
+    discountEl.textContent = '-' + Math.round(totals.couponDiscount) + '₪';
+  } else {
+    couponRow.style.display = 'none';
+  }
+
+  if(totals.pointsDiscount > 0){
+    pointsRow.style.display = 'flex';
+    pointsDiscountEl.textContent = '-' + Math.round(totals.pointsDiscount) + '₪';
+  } else {
+    pointsRow.style.display = 'none';
+  }
+
+  totalEl.textContent = Math.round(totals.finalTotal) + '₪';
+  earnedPreviewEl.textContent = totals.earnedPoints + ' נקודות';
+}
 
 function quickAddUpsell(name, price, el){
-
   cart.push({
     name: name,
     price: Number(price),
@@ -1570,104 +1608,69 @@ function quickAddUpsell(name, price, el){
   },750);
 }
 
-      wrap.innerHTML = cart.map((item,index)=>{
-        const price = Number(item.price || 0);
-        const qty = item.qty || 1;
-        const details = item.details && item.details.length ? item.details.join(' • ') : '';
-        return `
-          <div class="cart-item">
-            <div>
-              <div class="cart-name">${item.name}</div>
-              ${details ? `<div class="cart-sub">${details}</div>` : ''}
-            </div>
-            <div style="text-align:left">
-              <div class="entry-price">${price * qty}₪</div>
-              <button class="mini-btn mini-secondary" style="margin-top:8px" onclick="removeFromCart(${index})">הסר</button>
-            </div>
-          </div>
-        `;
-      }).join('');
-      const totals = calculateTotals(true);
-      subtotalEl.textContent = Math.round(totals.subtotal) + '₪';
-      if(totals.couponDiscount > 0){
-        couponRow.style.display = 'flex';
-        discountEl.textContent = '-' + Math.round(totals.couponDiscount) + '₪';
-      } else {
-        couponRow.style.display = 'none';
-      }
-      if(totals.pointsDiscount > 0){
-        pointsRow.style.display = 'flex';
-        pointsDiscountEl.textContent = '-' + Math.round(totals.pointsDiscount) + '₪';
-      } else {
-        pointsRow.style.display = 'none';
-      }
-      totalEl.textContent = Math.round(totals.finalTotal) + '₪';
-      earnedPreviewEl.textContent = totals.earnedPoints + ' נקודות';
-    }
-
-    function removeFromCart(index){
-      cart.splice(index,1);
-      persist();
-      updateCart();
-    }
-
-    function loginOrRegister(){
-      const name = document.getElementById('authName').value.trim();
-      const contact = document.getElementById('authContact').value.trim();
-      const address = document.getElementById('authAddress').value.trim();
-      if(!name || !contact){
-        alert('צריך למלא לפחות שם וטלפון או אימייל.');
-        return;
-      }
-      profile = { name, contact, address };
-      persist();
-      closeModal('authModal');
-      renderProfile();
-      renderHistory();
-      updatePointsDisplay();
-      alert('המשתמש נשמר במכשיר בהצלחה.');
-    }
-
-    function renderProfile(){
-      const out = document.getElementById('profileLoggedOut');
-      const inn = document.getElementById('profileLoggedIn');
-      const details = document.getElementById('profileDetails');
-      if(!profile){
-        out.style.display = 'block';
-        inn.style.display = 'none';
-        document.getElementById('clubUserName').textContent = 'עדיין לא נשמר';
-        return;
-      }
-      out.style.display = 'none';
-      inn.style.display = 'block';
-      document.getElementById('clubUserName').textContent = profile.name;
-      details.innerHTML = `
-        <div class="history-card"><h4>שם מלא</h4><div class="history-meta">${profile.name}</div></div>
-        <div class="history-card"><h4>טלפון / אימייל</h4><div class="history-meta">${profile.contact}</div></div>
-        <div class="history-card"><h4>כתובת</h4><div class="history-meta">${profile.address || 'לא הוזנה'}</div></div>
-        <div class="history-card"><h4>נקודות מועדון</h4><div class="history-meta">${userPoints} נקודות</div></div>
-        <div class="history-card"><h4>הזמנה אחרונה</h4><div class="history-meta">${orders.length ? orders[orders.length-1].summary : 'עדיין אין הזמנות שמורות'}</div></div>
-      `;
-    }
-
-    function updatePointsDisplay(){
-
-const el = document.getElementById("pointsBalance");
-const bar = document.getElementById("pointsProgress");
-
-if(el){
-el.innerText = userPoints + " נק'";
+function removeFromCart(index){
+  cart.splice(index,1);
+  persist();
+  updateCart();
 }
 
-if(bar){
+function loginOrRegister(){
+  const name = document.getElementById('authName').value.trim();
+  const contact = document.getElementById('authContact').value.trim();
+  const address = document.getElementById('authAddress').value.trim();
 
-let progress = userPoints % 100;
-let percent = progress;
+  if(!name || !contact){
+    alert('צריך למלא לפחות שם וטלפון או אימייל.');
+    return;
+  }
 
-bar.style.width = percent + "%";
-
+  profile = { name, contact, address };
+  persist();
+  closeModal('authModal');
+  renderProfile();
+  renderHistory();
+  updatePointsDisplay();
+  alert('המשתמש נשמר במכשיר בהצלחה.');
 }
 
+function renderProfile(){
+  const out = document.getElementById('profileLoggedOut');
+  const inn = document.getElementById('profileLoggedIn');
+  const details = document.getElementById('profileDetails');
+
+  if(!profile){
+    out.style.display = 'block';
+    inn.style.display = 'none';
+    document.getElementById('clubUserName').textContent = 'עדיין לא נשמר';
+    return;
+  }
+
+  out.style.display = 'none';
+  inn.style.display = 'block';
+  document.getElementById('clubUserName').textContent = profile.name;
+
+  details.innerHTML = `
+    <div class="history-card"><h4>שם מלא</h4><div class="history-meta">${profile.name}</div></div>
+    <div class="history-card"><h4>טלפון / אימייל</h4><div class="history-meta">${profile.contact}</div></div>
+    <div class="history-card"><h4>כתובת</h4><div class="history-meta">${profile.address || 'לא הוזנה'}</div></div>
+    <div class="history-card"><h4>נקודות מועדון</h4><div class="history-meta">${userPoints} נקודות</div></div>
+    <div class="history-card"><h4>הזמנה אחרונה</h4><div class="history-meta">${orders.length ? orders[orders.length-1].summary : 'עדיין אין הזמנות שמורות'}</div></div>
+  `;
+}
+
+function updatePointsDisplay(){
+  const el = document.getElementById("pointsBalance");
+  const bar = document.getElementById("pointsProgress");
+
+  if(el){
+    el.innerText = userPoints + " נק'";
+  }
+
+  if(bar){
+    let progress = userPoints % 100;
+    let percent = progress;
+    bar.style.width = percent + "%";
+  }
 }
 
     function logout(){
