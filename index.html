@@ -1149,7 +1149,15 @@ checkStoreStatus();
     const cartModal = document.getElementById('cartModal');
     const authModal = document.getElementById('authModal');
 
-    document.getElementById('cartFab').addEventListener('click', ()=>openModal('cartModal'));
+document.getElementById('cartFab').addEventListener('click', ()=>{
+
+  openModal('cartModal');
+
+  setTimeout(()=>{
+    openModal('upsellModal');
+  },250);
+
+});
     document.getElementById('authOpen').addEventListener('click', ()=>openModal('authModal'));
 
     function openModal(id){ document.getElementById(id).classList.add('open'); }
