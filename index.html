@@ -1443,52 +1443,52 @@ document.getElementById('cartFab').addEventListener('click', ()=>{
         return;
       }
 
-function quickAddUpsell(name,price,el){
+function quickAddUpsell(name, price, el){
 
-  addSide(name,price);
+  cart.push({
+    name: name,
+    price: Number(price),
+    details: ['תוספת מהירה לפני סיום']
+  });
+
+  persist();
+  updateCart();
 
   if(navigator.vibrate){
-    navigator.vibrate(60);
+    navigator.vibrate([60, 40, 80]);
   }
 
   const fab = document.getElementById('cartFab');
 
   fab.classList.remove('cart-bounce');
-
-  setTimeout(()=>{
-    fab.classList.add('cart-bounce');
-  },10);
+  void fab.offsetWidth;
+  fab.classList.add('cart-bounce');
 
   const rect = el.getBoundingClientRect();
+  const fabRect = fab.getBoundingClientRect();
 
   const fly = document.createElement('div');
-
   fly.className = 'fly-item';
-
   fly.innerHTML = el.innerHTML;
 
   fly.style.left = rect.left + 'px';
   fly.style.top = rect.top + 'px';
   fly.style.width = rect.width + 'px';
+  fly.style.transform = 'scale(1)';
+  fly.style.opacity = '1';
 
   document.body.appendChild(fly);
 
-  const fabRect = fab.getBoundingClientRect();
-
   setTimeout(()=>{
-
     fly.style.left = fabRect.left + 'px';
     fly.style.top = fabRect.top + 'px';
-
+    fly.style.transform = 'scale(.18) rotate(18deg)';
     fly.style.opacity = '0';
-    fly.style.transform = 'scale(.2)';
-
-  },10);
+  },30);
 
   setTimeout(()=>{
     fly.remove();
-  },700);
-
+  },750);
 }
 
       wrap.innerHTML = cart.map((item,index)=>{
