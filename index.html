@@ -410,61 +410,61 @@ text-shadow:0 0 10px rgba(255,178,26,.5);
               <div class="section-sub">תבחר איך בא לך להתחיל.</div>
             </div>
           </div>
-          
-  <div class="simple-grid">
-    <div class="tile" onclick="document.getElementById('homeCombos').scrollIntoView({behavior:'smooth'})">
-      <div class="tile-icon">🔥</div>
-      <div class="tile-title">המנות של פליפה</div>
-      <div class="tile-text">שלוש מנות מדויקות, מושקעות ומוגשות עם צ׳יפס.</div>
-    </div>
-    <div class="tile" onclick="showPage('menu')">
-      <div class="tile-icon">🍟</div>
-      <div class="tile-title">לתפריט המלא</div>
-      <div class="tile-text">כניסה מהירה לכל המנות והתוספות בלחיצה אחת.</div>
-    </div>
-  </div>
-</section>
 
-<section class="section" id="homeCombos">
+          <div class="simple-grid">
+            <div class="tile" onclick="document.getElementById('homeCombos').scrollIntoView({behavior:'smooth'})">
+              <div class="tile-icon">🔥</div>
+              <div class="tile-title">המנות של פליפה</div>
+              <div class="tile-text">שלוש מנות מדויקות, מושקעות ומוגשות עם צ׳יפס.</div>
+            </div>
+            <div class="tile" onclick="showPage('menu')">
+              <div class="tile-icon">🍟</div>
+              <div class="tile-title">לתפריט המלא</div>
+              <div class="tile-text">כניסה מהירה לכל המנות והתוספות בלחיצה אחת.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="homeCombos">
           <div class="section-head">
             <div>
               <div class="section-title">להתחיל בקליק</div>
             </div>
           </div>
+
           <div class="entries">
+            <div class="entry-card garlic" onclick="openCombo('marseille')">
+              <div class="entry-head">
+                <div>
+                  <div class="entry-title">🇫🇷🥑 מרסיי</div>
+                  <div class="entry-desc">גוואקמולי, איולי שום משובח, רוטב שזיפים, בצל, חסה ואורז עשבי טיבול. עוף. בכל מנה מגיע צ׳יפס.</div>
+                </div>
+                <div class="entry-price">65₪</div>
+              </div>
+              <div class="entry-tags"><div class="entry-tag">עוף</div><div class="entry-tag">+ צ׳יפס</div></div>
+            </div>
 
-<div class="entry-card garlic" onclick="openCombo('marseille')">
-  <div class="entry-head">
-    <div>
-      <div class="entry-title">🇫🇷🥑 מרסיי</div>
-      <div class="entry-desc">גוואקמולי, איולי שום משובח, רוטב שזיפים, בצל, חסה ואורז עשבי טיבול. עוף. בכל מנה מגיע צ׳יפס.</div>
-    </div>
-    <div class="entry-price">65₪</div>
-  </div>
-  <div class="entry-tags"><div class="entry-tag">עוף</div><div class="entry-tag">+ צ׳יפס</div></div>
-</div>
+            <div class="entry-card spicy" onclick="openCombo('rio')">
+              <div class="entry-head">
+                <div>
+                  <div class="entry-title">🔥🌶️ ריו — לאמיצים בלבד!</div>
+                  <div class="entry-desc">גוואקמולי, סלסה חריפה, ברביקיו מעושן, סלט חריף, חסה, בצל ואורז עשבי טיבול. אנטריקוט. בכל מנה מגיע צ׳יפס.</div>
+                </div>
+                <div class="entry-price">65₪</div>
+              </div>
+              <div class="entry-tags"><div class="entry-tag">אנטריקוט</div><div class="entry-tag">חריף</div></div>
+            </div>
 
-<div class="entry-card spicy" onclick="openCombo('rio')">
-  <div class="entry-head">
-    <div>
-      <div class="entry-title">🔥🌶️ ריו — לאמיצים בלבד!</div>
-      <div class="entry-desc">גוואקמולי, סלסה חריפה, ברביקיו מעושן, סלט חריף, חסה, בצל ואורז עשבי טיבול. אנטריקוט. בכל מנה מגיע צ׳יפס.</div>
-    </div>
-    <div class="entry-price">65₪</div>
-  </div>
-  <div class="entry-tags"><div class="entry-tag">אנטריקוט</div><div class="entry-tag">חריף</div></div>
-</div>
-
-<div class="entry-card felipe" onclick="openCombo('philadelphia')">
-  <div class="entry-head">
-    <div>
-      <div class="entry-title">🗽🥬 פילדלפיה</div>
-      <div class="entry-desc">גוואקמולי, חסה, סלט ירקות, רוטב הבית, גבינה טבעונית ואורז עשבי טיבול. אנטריקוט. בכל מנה מגיע צ׳יפס.</div>
-    </div>
-    <div class="entry-price">66₪</div>
-  </div>
-  <div class="entry-tags"><div class="entry-tag">אנטריקוט</div><div class="entry-tag">גבינה טבעונית</div></div>
-</div>
+            <div class="entry-card felipe" onclick="openCombo('philadelphia')">
+              <div class="entry-head">
+                <div>
+                  <div class="entry-title">🗽🥬 פילדלפיה</div>
+                  <div class="entry-desc">גוואקמולי, חסה, סלט ירקות, רוטב הבית, גבינה טבעונית ואורז עשבי טיבול. אנטריקוט. בכל מנה מגיע צ׳יפס.</div>
+                </div>
+                <div class="entry-price">66₪</div>
+              </div>
+              <div class="entry-tags"><div class="entry-tag">אנטריקוט</div><div class="entry-tag">גבינה טבעונית</div></div>
+            </div>
           </div>
         </section>
 
@@ -476,127 +476,128 @@ text-shadow:0 0 10px rgba(255,178,26,.5);
             </div>
           </div>
 
-         <div class="entries">
-  <div class="feature-card" onclick="addSide('🍟 צ׳יפס',15)" style="cursor:pointer">
-    <h3>🍟 צ׳יפס</h3>
-    <p>תוספת קלאסית ליד הבוריטו • 15₪</p>
-  </div>
-</div>
-</section>
-
-<section id="menuPage" class="page">
-
-  <div class="clean-card">
-    <h3>התפריט</h3>
-    <p>מכאן אפשר לפתוח כל מנה, לבחור שם למנה, התאמות מהירות, הערה והוספה לסל.</p>
-
-    <div class="entries" style="margin-top:14px">
-      <div class="entry-card garlic" onclick="openCombo('marseille')">
-        <div class="entry-head">
-          <div>
-            <div class="entry-title">🇫🇷🥑 מרסיי</div>
-            <div class="entry-desc">
-              גוואקמולי, איולי שום משובח, רוטב שזיפים, בצל, חסה ואורז עשבי טיבול. עוף + צ׳יפס.
+          <div class="entries">
+            <div class="feature-card" onclick="addSide('🍟 צ׳יפס',15)" style="cursor:pointer">
+              <h3>🍟 צ׳יפס</h3>
+              <p>תוספת קלאסית ליד הבוריטו • 15₪</p>
             </div>
           </div>
-          <div class="entry-price">65₪</div>
-        </div>
-      </div>
+        </section>
 
-      <div class="entry-card spicy" onclick="openCombo('rio')">
-        <div class="entry-head">
-          <div>
-            <div class="entry-title">🔥🌶️ ריו — לאמיצים בלבד!</div>
-            <div class="entry-desc">
-              גוואקמולי, סלסה חריפה, ברביקיו מעושן, סלט חריף, חסה, בצל ואורז עשבי טיבול. אנטריקוט + צ׳יפס.
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <div class="section-title">שתייה קלה</div>
+              <div class="section-sub">בקבוקים קרים להשלמת ההזמנה.</div>
             </div>
           </div>
-          <div class="entry-price">65₪</div>
-        </div>
-      </div>
 
-      <div class="entry-card felipe" onclick="openCombo('philadelphia')">
-        <div class="entry-head">
-          <div>
-            <div class="entry-title">🗽🥬 פילדלפיה</div>
-            <div class="entry-desc">
-              גוואקמולי, חסה, סלט ירקות, רוטב הבית, גבינה טבעונית ואורז עשבי טיבול. אנטריקוט + צ׳יפס.
+          <div class="entries">
+            <div class="feature-card" onclick="addSide('קולה',10)" style="cursor:pointer">
+              <h3 style="display:flex;align-items:center;gap:10px">
+                <img src="coke.png" style="width:30px;height:30px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(255,255,255,.7));">
+                קולה - 10₪
+              </h3>
+            </div>
+
+            <div class="feature-card" onclick="addSide('קולה זירו',10)" style="cursor:pointer">
+              <h3 style="display:flex;align-items:center;gap:10px">
+                <img src="cokezero.png" style="width:30px;height:30px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(255,255,255,.7));">
+                קולה זירו - 10₪
+              </h3>
+            </div>
+
+            <div class="feature-card" onclick="addSide('פיוזטי',10)" style="cursor:pointer">
+              <h3 style="display:flex;align-items:center;gap:10px">
+                <img src="fuzetea.png" style="width:30px;height:30px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(255,255,255,.7));">
+                פיוזטי - 10₪
+              </h3>
             </div>
           </div>
-          <div class="entry-price">66₪</div>
+        </section>
+      </section>
+
+      <section id="menuPage" class="page">
+        <div class="clean-card">
+          <h3>התפריט</h3>
+          <p>מכאן אפשר לפתוח כל מנה, לבחור שם למנה, התאמות מהירות, הערה והוספה לסל.</p>
+
+          <div class="entries" style="margin-top:14px">
+            <div class="entry-card garlic" onclick="openCombo('marseille')">
+              <div class="entry-head">
+                <div>
+                  <div class="entry-title">🇫🇷🥑 מרסיי</div>
+                  <div class="entry-desc">גוואקמולי, איולי שום משובח, רוטב שזיפים, בצל, חסה ואורז עשבי טיבול. עוף + צ׳יפס.</div>
+                </div>
+                <div class="entry-price">65₪</div>
+              </div>
+            </div>
+
+            <div class="entry-card spicy" onclick="openCombo('rio')">
+              <div class="entry-head">
+                <div>
+                  <div class="entry-title">🔥🌶️ ריו — לאמיצים בלבד!</div>
+                  <div class="entry-desc">גוואקמולי, סלסה חריפה, ברביקיו מעושן, סלט חריף, חסה, בצל ואורז עשבי טיבול. אנטריקוט + צ׳יפס.</div>
+                </div>
+                <div class="entry-price">65₪</div>
+              </div>
+            </div>
+
+            <div class="entry-card felipe" onclick="openCombo('philadelphia')">
+              <div class="entry-head">
+                <div>
+                  <div class="entry-title">🗽🥬 פילדלפיה</div>
+                  <div class="entry-desc">גוואקמולי, חסה, סלט ירקות, רוטב הבית, גבינה טבעונית ואורז עשבי טיבול. אנטריקוט + צ׳יפס.</div>
+                </div>
+                <div class="entry-price">66₪</div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="clean-card" style="margin-top:14px">
-    <h3>תוספות</h3>
-    <p>אפשר להוסיף לצד הבוריטו או להזמין כתוספת לארוחה.</p>
+        <div class="clean-card" style="margin-top:14px">
+          <h3>תוספות</h3>
+          <p>אפשר להוסיף לצד הבוריטו או להזמין כתוספת לארוחה.</p>
 
-    <div class="entries" style="margin-top:12px">
-      <div class="feature-card" onclick="addSide('🍟 צ׳יפס',15)" style="cursor:pointer">
-        <h3>🍟 צ׳יפס</h3>
-        <p>15₪</p>
-      </div>
-    </div>
-  </div>
+          <div class="entries" style="margin-top:12px">
+            <div class="feature-card" onclick="addSide('🍟 צ׳יפס',15)" style="cursor:pointer">
+              <h3>🍟 צ׳יפס</h3>
+              <p>15₪</p>
+            </div>
+          </div>
+        </div>
 
-  <section class="section">
-    <div class="section-head">
-      <div>
-        <div class="section-title">שתייה קלה</div>
-        <div class="section-sub">בקבוקים קרים להשלמת ההזמנה.</div>
-      </div>
-    </div>
+        <div class="clean-card" style="margin-top:14px">
+          <h3>שתייה קלה</h3>
+          <p>בקבוקים קרים להשלמת ההזמנה.</p>
 
-    <div class="entries">
+          <div class="entries" style="margin-top:12px">
+            <div class="feature-card" onclick="addSide('קולה',10)" style="cursor:pointer">
+              <h3 style="display:flex;align-items:center;gap:10px">
+                <img src="coke.png" style="width:30px;height:30px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(255,255,255,.7));">
+                קולה - 10₪
+              </h3>
+            </div>
 
-      <div class="feature-card" onclick="addSide('קולה',10)" style="cursor:pointer">
-        <h3 style="display:flex;align-items:center;gap:10px">
-          <img src="coke.png"
-               style="
-                 width:30px;
-                 height:30px;
-                 object-fit:contain;
-                 filter:drop-shadow(0 0 8px rgba(255,255,255,.7));
-               ">
-          קולה - 10₪
-        </h3>
-      </div>
+            <div class="feature-card" onclick="addSide('קולה זירו',10)" style="cursor:pointer">
+              <h3 style="display:flex;align-items:center;gap:10px">
+                <img src="cokezero.png" style="width:30px;height:30px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(255,255,255,.7));">
+                קולה זירו - 10₪
+              </h3>
+            </div>
 
-      <div class="feature-card" onclick="addSide('קולה זירו',10)" style="cursor:pointer">
-        <h3 style="display:flex;align-items:center;gap:10px">
-          <img src="cokezero.png"
-               style="
-                 width:30px;
-                 height:30px;
-                 object-fit:contain;
-                 filter:drop-shadow(0 0 8px rgba(255,255,255,.7));
-               ">
-          קולה זירו - 10₪
-        </h3>
-      </div>
+            <div class="feature-card" onclick="addSide('פיוזטי',10)" style="cursor:pointer">
+              <h3 style="display:flex;align-items:center;gap:10px">
+                <img src="fuzetea.png" style="width:30px;height:30px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(255,255,255,.7));">
+                פיוזטי - 10₪
+              </h3>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <div class="feature-card" onclick="addSide('פיוזטי',10)" style="cursor:pointer">
-        <h3 style="display:flex;align-items:center;gap:10px">
-          <img src="fuzetea.png"
-               style="
-                 width:30px;
-                 height:30px;
-                 object-fit:contain;
-                 filter:drop-shadow(0 0 8px rgba(255,255,255,.7));
-               ">
-          פיוזטי - 10₪
-        </h3>
-      </div>
-
-    </div>
-  </section>
-
-</section>
-
-<section id="clubPage" class="page">
-<div class="clean-card">
+      <section id="clubPage" class="page">
+        <div class="clean-card">
 
 <div class="club-header">
 <h2>🎟️ חבר מועדון</h2>
