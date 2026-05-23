@@ -1133,7 +1133,7 @@ checkStoreStatus();
     const sidesModal = document.getElementById('sidesModal');
     const cartModal = document.getElementById('cartModal');
     const authModal = document.getElementById('authModal');
-
+const authModal = document.getElementById('authModal');
 document.getElementById('cartFab').addEventListener('click', ()=>{
 
   openModal('cartModal');
@@ -1148,7 +1148,7 @@ document.getElementById('cartFab').addEventListener('click', ()=>{
     function openModal(id){ document.getElementById(id).classList.add('open'); }
     function closeModal(id){ document.getElementById(id).classList.remove('open'); }
 
-    [productModal, sidesModal, cartModal, authModal].forEach(modal => {
+[productModal, sidesModal, cartModal, authModal, upsellModal].forEach(modal => {
       modal.addEventListener('click', e => { if(e.target===modal) modal.classList.remove('open'); });
     });
 
