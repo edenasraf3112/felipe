@@ -1301,7 +1301,7 @@ function addSide(name, price, el){
   animateToCart(el);
 }
 
-function animateToCart(){
+function animateToCart(el){
   if(navigator.vibrate){
     navigator.vibrate([60, 40, 80]);
   }
@@ -1311,6 +1311,34 @@ function animateToCart(){
   fab.classList.remove('cart-bounce');
   void fab.offsetWidth;
   fab.classList.add('cart-bounce');
+
+  if(!el) return;
+
+  const rect = el.getBoundingClientRect();
+  const fabRect = fab.getBoundingClientRect();
+
+  const fly = document.createElement('div');
+  fly.className = 'fly-item';
+  fly.innerHTML = el.innerHTML;
+
+  fly.style.left = rect.left + 'px';
+  fly.style.top = rect.top + 'px';
+  fly.style.width = rect.width + 'px';
+  fly.style.transform = 'scale(1)';
+  fly.style.opacity = '1';
+
+  document.body.appendChild(fly);
+
+  setTimeout(()=>{
+    fly.style.left = fabRect.left + 'px';
+    fly.style.top = fabRect.top + 'px';
+    fly.style.transform = 'scale(.18) rotate(18deg)';
+    fly.style.opacity = '0';
+  },30);
+
+  setTimeout(()=>{
+    fly.remove();
+  },750);
 }
 
 function applyCoupon(){
