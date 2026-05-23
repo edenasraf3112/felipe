@@ -369,6 +369,45 @@ text-shadow:0 0 10px rgba(255,178,26,.5);
     .message-box.success{display:block;background:rgba(141,255,65,.10);border:1px solid rgba(141,255,65,.22);color:#d9ffba}
     .message-box.error{display:block;background:rgba(255,80,63,.10);border:1px solid rgba(255,80,63,.22);color:#ffd0ca}
 
+#upsellModal{
+  align-items:center !important;
+}
+
+#upsellModal .sheet{
+  position:relative;
+  max-height:none;
+}
+
+.upsell-card{
+  cursor:pointer;
+  transition:.18s ease;
+  text-align:center;
+  padding:18px;
+}
+
+.upsell-card:active{
+  transform:scale(.96);
+}
+
+.cart-bounce{
+  animation:cartBounce .45s ease;
+}
+
+@keyframes cartBounce{
+  0%{transform:translateX(-50%) scale(1);}
+  20%{transform:translateX(-50%) scale(1.12) rotate(-4deg);}
+  40%{transform:translateX(-50%) scale(.95) rotate(4deg);}
+  60%{transform:translateX(-50%) scale(1.08);}
+  100%{transform:translateX(-50%) scale(1);}
+}
+
+.fly-item{
+  position:fixed;
+  z-index:9999;
+  pointer-events:none;
+  transition:all .7s cubic-bezier(.2,.8,.2,1);
+}
+
     @media (max-width:390px){
       .simple-grid{grid-template-columns:1fr}
       .hero-title{font-size:28px}
