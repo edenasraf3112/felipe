@@ -1300,6 +1300,18 @@ document.getElementById('cartFab').addEventListener('click', ()=>{
       alert(name + ' נוסף לסל');
     }
 
+function animateToCart(){
+  if(navigator.vibrate){
+    navigator.vibrate([60, 40, 80]);
+  }
+
+  const fab = document.getElementById('cartFab');
+
+  fab.classList.remove('cart-bounce');
+  void fab.offsetWidth;
+  fab.classList.add('cart-bounce');
+}
+
     function applyCoupon(){
       const code = document.getElementById('couponInput').value.trim().toUpperCase();
       const message = document.getElementById('couponMessage');
