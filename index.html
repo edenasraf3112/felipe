@@ -1293,12 +1293,12 @@ function renderChips(items, kind){
   return `<div class="chips">${items.map(item=>`<div class="chip" data-chip-kind="${kind}" data-chip-value="${item}" onclick="toggleChip(this)">${item}</div>`).join('')}</div>`;
 }
 
-function addSide(name, price){
+function addSide(name, price, el){
   cart.push({ name, price:Number(price), details:['תוספת בצד'] });
 
   persist();
   updateCart();
-  animateToCart();
+  animateToCart(el);
 }
 
 function animateToCart(){
