@@ -758,6 +758,123 @@ text-shadow:0 0 10px rgba(255,178,26,.5);
   </div>
 
   <div class="modal" id="cartModal">
+    
+    <div class="modal" id="upsellModal">
+  <div class="sheet">
+
+    <button class="close"
+      style="position:absolute;left:18px;top:18px"
+      onclick="closeModal('upsellModal')">
+      ✕
+    </button>
+
+    <div class="sheet-head" style="margin-top:12px">
+      <div>
+        <div class="sheet-title">
+          משהו אחרון לפני שמסיימים? 👀
+        </div>
+
+        <div class="sheet-sub">
+          אולי שכחת משהו קטן ליד הבוריטו 🌯
+        </div>
+      </div>
+    </div>
+
+    <div style="
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-top:18px;
+    ">
+
+      <!-- צ׳יפס -->
+      <div class="feature-card upsell-card"
+        onclick="quickAddUpsell('🍟 צ׳יפס',15,this)">
+        <div style="font-size:34px">🍟</div>
+        <div style="margin-top:10px;font-weight:900">
+          צ׳יפס
+        </div>
+        <div style="margin-top:4px;color:#ffb21a">
+          15₪
+        </div>
+      </div>
+
+      <!-- קולה -->
+      <div class="feature-card upsell-card"
+        onclick="quickAddUpsell('קולה',10,this)">
+        <img src="coke.png"
+          style="
+            width:42px;
+            height:42px;
+            object-fit:contain;
+            filter:drop-shadow(0 0 8px rgba(255,255,255,.7));
+          ">
+
+        <div style="margin-top:10px;font-weight:900">
+          קולה
+        </div>
+
+        <div style="margin-top:4px;color:#ffb21a">
+          10₪
+        </div>
+      </div>
+
+      <!-- זירו -->
+      <div class="feature-card upsell-card"
+        onclick="quickAddUpsell('קולה זירו',10,this)">
+        <img src="cokezero.png"
+          style="
+            width:42px;
+            height:42px;
+            object-fit:contain;
+            filter:drop-shadow(0 0 8px rgba(255,255,255,.7));
+          ">
+
+        <div style="margin-top:10px;font-weight:900">
+          קולה זירו
+        </div>
+
+        <div style="margin-top:4px;color:#ffb21a">
+          10₪
+        </div>
+      </div>
+
+      <!-- פיוזטי -->
+      <div class="feature-card upsell-card"
+        onclick="quickAddUpsell('פיוזטי',10,this)">
+        <img src="fuzetea.png"
+          style="
+            width:42px;
+            height:42px;
+            object-fit:contain;
+            filter:drop-shadow(0 0 8px rgba(255,255,255,.7));
+          ">
+
+        <div style="margin-top:10px;font-weight:900">
+          פיוזטי
+        </div>
+
+        <div style="margin-top:4px;color:#ffb21a">
+          10₪
+        </div>
+      </div>
+
+    </div>
+
+    <button class="btn btn-secondary"
+      style="
+        width:100%;
+        margin-top:18px;
+      "
+      onclick="closeModal('upsellModal')">
+
+      לא מעוניין
+
+    </button>
+
+  </div>
+</div>
+    
     <div class="sheet">
       <div class="sheet-head">
         <div>
