@@ -1438,13 +1438,8 @@ bar.style.width = percent + "%";
       messageBox.className = 'message-box info';
       messageBox.style.display = 'block';
       messageBox.innerText = 'שולחים את ההזמנה...';
-
-      if(!isOpenNow()){
-        messageBox.className = 'message-box error';
-        messageBox.style.display = 'block';
-        messageBox.innerText = '❌אנחנו סגורים כרגע. שעות פתיחה: חמישי 19:00–02:30';
-        return;
-      }
+';
+       
 
       if(!cart.length){
         alert('הסל ריק כרגע');
