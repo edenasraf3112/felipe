@@ -362,6 +362,37 @@ text-shadow:0 0 10px rgba(255,178,26,.5);
     @media (max-width:390px){
       .simple-grid{grid-template-columns:1fr}
       .hero-title{font-size:28px}
+      
+      .upsell-card{
+  cursor:pointer;
+  transition:.18s ease;
+  text-align:center;
+  padding:18px;
+}
+
+.upsell-card:hover{
+  transform:translateY(-4px) scale(1.03);
+}
+
+.cart-bounce{
+  animation:cartBounce .45s ease;
+}
+
+@keyframes cartBounce{
+  0%{transform:translateX(-50%) scale(1);}
+  20%{transform:translateX(-50%) scale(1.12) rotate(-4deg);}
+  40%{transform:translateX(-50%) scale(.95) rotate(4deg);}
+  60%{transform:translateX(-50%) scale(1.08);}
+  100%{transform:translateX(-50%) scale(1);}
+}
+
+.fly-item{
+  position:fixed;
+  z-index:9999;
+  pointer-events:none;
+  transition:all .7s cubic-bezier(.2,.8,.2,1);
+}
+      
     }
   </style>
 </head>
@@ -1420,6 +1451,54 @@ checkStoreStatus();
         earnedPreviewEl.textContent = '0 נקודות';
         return;
       }
+
+function quickAddUpsell(name,price,el){
+
+  addSide(name,price);
+
+  if(navigator.vibrate){
+    navigator.vibrate(60);
+  }
+
+  const fab = document.getElementById('cartFab');
+
+  fab.classList.remove('cart-bounce');
+
+  setTimeout(()=>{
+    fab.classList.add('cart-bounce');
+  },10);
+
+  const rect = el.getBoundingClientRect();
+
+  const fly = document.createElement('div');
+
+  fly.className = 'fly-item';
+
+  fly.innerHTML = el.innerHTML;
+
+  fly.style.left = rect.left + 'px';
+  fly.style.top = rect.top + 'px';
+  fly.style.width = rect.width + 'px';
+
+  document.body.appendChild(fly);
+
+  const fabRect = fab.getBoundingClientRect();
+
+  setTimeout(()=>{
+
+    fly.style.left = fabRect.left + 'px';
+    fly.style.top = fabRect.top + 'px';
+
+    fly.style.opacity = '0';
+    fly.style.transform = 'scale(.2)';
+
+  },10);
+
+  setTimeout(()=>{
+    fly.remove();
+  },700);
+
+}
 
       wrap.innerHTML = cart.map((item,index)=>{
         const price = Number(item.price || 0);
