@@ -1534,6 +1534,7 @@ closeModal('productModal');
       closeModal('sidesModal');
       persist();
       updateCart();
+      animateToCart();
     }
 
     function calculateTotals(includeEarned=true){
@@ -1626,6 +1627,7 @@ function quickAddUpsell(name, price, el){
 
   persist();
   updateCart();
+  animateToCart();
 
   if(navigator.vibrate){
     navigator.vibrate([60, 40, 80]);
@@ -1668,6 +1670,7 @@ function removeFromCart(index){
   cart.splice(index,1);
   persist();
   updateCart();
+  animateToCart();
 }
 
 function loginOrRegister(){
@@ -1736,6 +1739,7 @@ function updatePointsDisplay(){
       renderProfile();
       renderHistory();
       updateCart();
+      animateToCart();
     }
 
     function clearProfile(){
@@ -1748,6 +1752,7 @@ function updatePointsDisplay(){
       renderHistory();
       updatePointsDisplay();
       updateCart();
+      animateToCart();
     }
 
     function toggleClubForm(){
@@ -1819,7 +1824,9 @@ function updatePointsDisplay(){
       cart.splice(0, cart.length, ...JSON.parse(JSON.stringify(order.items)));
       persist();
       updateCart();
+      animateToCart();
       openModal('cartModal');
+      
     }
 
     async function sendOrderEmail(lines, total){
@@ -1964,6 +1971,7 @@ function updatePointsDisplay(){
 
   persist();
   updateCart();
+  animateToCart();
   renderHistory();
   renderProfile();
   updatePointsDisplay();
