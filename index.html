@@ -1491,8 +1491,9 @@ function openCombo(key){
           details:[customName ? `שם למנה: ${customName}` : '', meat ? `בשר: ${meat}` : '', ...changes, note ? `הערה: ${note}` : ''].filter(Boolean)
         });
         persist();
-        updateCart();
-        closeModal('productModal');
+updateCart();
+animateToCart();
+closeModal('productModal');
       } else {
         const meat = getActiveRadio('build-meat');
         const match = buildData.meats.find(x => x[0]===meat) || buildData.meats[0];
