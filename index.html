@@ -1434,140 +1434,130 @@ bar.style.width = percent + "%";
 }
     
     async function checkout(){
-      const messageBox = document.getElementById('checkoutMessage');
-      messageBox.className = 'message-box info';
-      messageBox.style.display = 'block';
-      messageBox.innerText = 'שולחים את ;
+  const messageBox = document.getElementById('checkoutMessage');
+  messageBox.className = 'message-box info';
+  messageBox.style.display = 'block';
+  messageBox.innerText = 'שולחים את ההזמנה...';
+
+  if(!cart.length){
+    alert('הסל ריק כרגע');
+    return;
+  }
+
+  if(!profile){
+    closeModal('cartModal');
+    openModal('authModal');
+    alert('צריך להתחבר לפני הזמנה');
+    return;
+  }
+
+  const totals = calculateTotals(true);
+  const total = Math.round(totals.finalTotal);
+  const subtotal = Math.round(totals.subtotal);
+  const couponDiscount = Math.round(totals.couponDiscount);
+  const pointsDiscount = Math.round(totals.pointsDiscount);
+  const earnedPoints = Math.round(totals.earnedPoints);
+
+  orderNumber++;
+
+  const lines = [];
+  lines.push('מספר הזמנה: #' + orderNumber);
+  lines.push('התקבלה הזמנה חדשה מאתר פליפה בוריטו');
+  lines.push('');
+  lines.push(`שם: ${profile.name}`);
+  lines.push(`טלפון: ${profile.contact}`);
+  lines.push(`כתובת: ${profile.address || 'לא הוזנה'}`);
+  lines.push('');
+  lines.push(`אמצעי תשלום: ${paymentMethod === 'bit' ? 'bit' : 'מזומן'}`);
+  lines.push('');
+  lines.push('פרטי הזמנה:');
+
+  cart.forEach((item,i)=>{
+    lines.push(`${i+1}. ${item.name} - ${item.price}₪`);
+    if(item.details && item.details.length){
+      lines.push('   ' + item.details.join(' | '));
     }
+  });
 
-      if(!cart.length){
-        alert('הסל ריק כרגע');
-        return;
-      }
-      if(!profile){
-        closeModal('cartModal');
-        openModal('authModal');
-        alert('צריך להתחבר לפני הזמנה');
-        return;
-      }
+  lines.push('');
+  lines.push(`סה"כ: ${subtotal}₪`);
+  if(couponDiscount > 0) lines.push(`קופון: -${couponDiscount}₪`);
+  if(pointsDiscount > 0) lines.push(`נקודות: -${pointsDiscount}₪`);
+  lines.push(`לתשלום: ${total}₪`);
+  lines.push(`נקודות חדשות: ${earnedPoints}`);
 
-      const blockedPhones = [
-        "0501234567",
-        "0529876543"
-      ];
+  let emailSent = false;
+  let orderSaved = false;
+  let lastErrorMessage = '';
 
-      if(blockedPhones.includes(profile.contact)){
-        alert("❌ לא ניתן לבצע הזמנה ממספר זה");
-        return;
-      }
+  try{
+    await sendOrderEmail(lines, total);
+    emailSent = true;
+  }catch(e){
+    console.log("Email failed:", e);
+    lastErrorMessage = e?.message || 'שגיאה בשליחת המייל';
+  }
 
-      const totals = calculateTotals(true);
-      const total = Math.round(totals.finalTotal);
-      const subtotal = Math.round(totals.subtotal);
-      const couponDiscount = Math.round(totals.couponDiscount);
-      const pointsDiscount = Math.round(totals.pointsDiscount);
-      const earnedPoints = Math.round(totals.earnedPoints);
+  try{
+    await saveOrder({
+      order_number: orderNumber,
+      customer_name: profile.name,
+      customer_contact: profile.contact,
+      customer_address: profile.address || '',
+      items: cart,
+      subtotal,
+      coupon_code: activeCoupon?.code || null,
+      coupon_discount: couponDiscount,
+      points_redeemed: pointsDiscount,
+      final_total: total,
+      payment_method: paymentMethod,
+      earned_points: earnedPoints,
+      created_at: new Date().toISOString()
+    });
+    orderSaved = true;
+  }catch(e){
+    console.error("Save order failed:", e);
+    lastErrorMessage = e?.message || 'שגיאה בשמירת ההזמנה';
+  }
 
-      orderNumber++;
+  if(!emailSent && !orderSaved){
+    messageBox.className = 'message-box error';
+    messageBox.innerText = "❌ ההזמנה לא נשלחה. " + (lastErrorMessage || "נסה שוב");
+    return;
+  }
 
-      const lines = [];
-      lines.push('מספר הזמנה: #' + orderNumber);
-      lines.push('התקבלה הזמנה חדשה מאתר פליפה בוריטו');
-      lines.push('');
-      lines.push(`שם: ${profile.name}`);
-      lines.push(`טלפון: ${profile.contact}`);
-      lines.push(`כתובת: ${profile.address || 'לא הוזנה'}`);
-      lines.push('');
-      lines.push(`אמצעי תשלום: ${paymentMethod === 'bit' ? 'bit' : 'מזומן'}`);
-      lines.push('');
-      lines.push('פרטי הזמנה:');
-      cart.forEach((item,i)=>{
-        lines.push(`${i+1}. ${item.name} - ${item.price}₪`);
-        if(item.details && item.details.length){
-          lines.push('   ' + item.details.join(' | '));
-        }
-      });
-      lines.push('');
-      lines.push(`סה"כ: ${subtotal}₪`);
-      if(couponDiscount > 0) lines.push(`קופון: -${couponDiscount}₪`);
-      if(pointsDiscount > 0) lines.push(`נקודות: -${pointsDiscount}₪`);
-      lines.push(`לתשלום: ${total}₪`);
-      lines.push(`נקודות חדשות: ${earnedPoints}`);
+  userPoints = Math.max(0, userPoints - pointsDiscount) + earnedPoints;
 
-      let emailSent = false;
-      let orderSaved = false;
-      let lastErrorMessage = '';
+  const summary = `${cart.length} פריטים • ${total}₪`;
+  const date = new Date().toLocaleString('he-IL');
 
-      try{
-        await sendOrderEmail(lines, total);
-        emailSent = true;
-      }catch(e){
-        console.log("Email failed:", e);
-        lastErrorMessage = e?.message || 'שגיאה בשליחת המייל';
-      }
+  orders.push({
+    orderNumber,
+    summary,
+    total,
+    subtotal,
+    date,
+    earnedPoints,
+    paymentMethod,
+    items: JSON.parse(JSON.stringify(cart))
+  });
 
-      try{
-        await saveOrder({
-          order_number: orderNumber,
-          customer_name: profile.name,
-          customer_contact: profile.contact,
-          customer_address: profile.address || '',
-          items: cart,
-          subtotal,
-          coupon_code: activeCoupon?.code || null,
-          coupon_discount: couponDiscount,
-          points_redeemed: pointsDiscount,
-          final_total: total,
-          payment_method: paymentMethod,
-          earned_points: earnedPoints,
-          created_at: new Date().toISOString()
-        });
-        orderSaved = true;
-      }catch(e){
-        console.error("Save order failed:", e);
-        lastErrorMessage = e?.message || 'שגיאה בשמירת ההזמנה';
-      }
+  cart.splice(0, cart.length);
+  activeCoupon = null;
+  pointsRedeemed = 0;
 
-      if(!emailSent && !orderSaved){
-        messageBox.className = 'message-box error';
-        messageBox.innerText = "❌ ההזמנה לא נשלחה. " + (lastErrorMessage || "נסה שוב");
-        return;
-      }
+  document.getElementById('couponInput').value = '';
+  document.getElementById('couponMessage').innerText = '';
 
-      userPoints = Math.max(0, userPoints - pointsDiscount) + earnedPoints;
+  persist();
+  updateCart();
+  renderHistory();
+  renderProfile();
+  updatePointsDisplay();
 
-      const summary = `${cart.length} פריטים • ${total}₪`;
-      const date = new Date().toLocaleString('he-IL');
-      orders.push({
-        orderNumber,
-        summary,
-        total,
-        subtotal,
-        date,
-        earnedPoints,
-        paymentMethod,
-        items: JSON.parse(JSON.stringify(cart))
-      });
-
-      cart.splice(0, cart.length);
-      activeCoupon = null;
-      pointsRedeemed = 0;
-      document.getElementById('couponInput').value = '';
-      document.getElementById('couponMessage').innerText = '';
-      persist();
-      updateCart();
-      renderHistory();
-      renderProfile();
-      updatePointsDisplay();
-
-      if(emailSent && orderSaved){
-        messageBox.className = 'message-box success';
-        messageBox.innerText = `✅ ההזמנה #${orderNumber} נשלחה בהצלחה! קיבלת ${earnedPoints} נקודות.`;
-      } else if(emailSent || orderSaved){
-        messageBox.className = 'message-box success';
-        messageBox.innerText = `✅ ההזמנה #${orderNumber} התקבלה. ייתכן שחלק מההתראות לא נשמרו, אבל ההזמנה כן הגיעה.`;
-      }
-    }
+  messageBox.className = 'message-box success';
+  messageBox.innerText = `✅ ההזמנה #${orderNumber} נשלחה בהצלחה! קיבלת ${earnedPoints} נקודות.`;
+}
 
 let paymentMethod = "cash";
 
