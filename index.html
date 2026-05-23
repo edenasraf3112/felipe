@@ -1248,57 +1248,58 @@ document.getElementById('cartFab').addEventListener('click', ()=>{
     };
 
     const buildData = {
-      meats:[['אנטריקוט',64],['בקר טחון',60],['עוף',58]],
-      sauces:['שזיפים','איולי שום','אלף האיים','מיונז','קטשופ','איולי עשבי טיבול'],
-      toppings:['סלט ירקות','סלט חריף','גוואקמולי','סלסה חריפה','סלסה מתוקה','חסה','בצל','בצל מקורמל']
-    };
+  meats:[['אנטריקוט',64],['בקר טחון',60],['עוף',58]],
+  sauces:['שזיפים','איולי שום','אלף האיים','מיונז','קטשופ','איולי עשבי טיבול'],
+  toppings:['סלט ירקות','סלט חריף','גוואקמולי','סלסה חריפה','סלסה מתוקה','חסה','בצל','בצל מקורמל']
+};
 
-    let currentProduct = null;
-    let pendingBuild = null;
-    let activeCoupon = null;
-    let pointsRedeemed = 0;
+let currentProduct = null;
+let pendingBuild = null;
+let activeCoupon = null;
+let pointsRedeemed = 0;
 
-    const cart = JSON.parse(localStorage.getItem('felipe_cart_v2') || '[]');
-    let profile = JSON.parse(localStorage.getItem('felipe_profile_v2') || 'null');
-    let orders = JSON.parse(localStorage.getItem('felipe_orders_v2') || '[]');
-    let userPoints = Number(localStorage.getItem('felipe_points') || 0);
-    let orderNumber = Number(localStorage.getItem('felipe_order_number') || 1000);
+const cart = JSON.parse(localStorage.getItem('felipe_cart_v2') || '[]');
+let profile = JSON.parse(localStorage.getItem('felipe_profile_v2') || 'null');
+let orders = JSON.parse(localStorage.getItem('felipe_orders_v2') || '[]');
+let userPoints = Number(localStorage.getItem('felipe_points') || 0);
+let orderNumber = Number(localStorage.getItem('felipe_order_number') || 1000);
 
-    const coupons = {
-      WELCOME10:{ type:'percent', value:10, min:0, firstOrder:true },
-      FELIPE15:{ type:'percent', value:15, min:80 },
-      BURRITO20:{ type:'fixed', value:20, min:100 },
-      BIGORDER:{ type:'fixed', value:30, min:150 },
-      FREECHIPS:{ type:'fixed', value:15, min:0, label:'צ׳יפס חינם' },
-      CLUB10:{ type:'percent', value:10, clubOnly:true }
-    };
+const coupons = {
+  WELCOME10:{ type:'percent', value:10, min:0, firstOrder:true },
+  FELIPE15:{ type:'percent', value:15, min:80 },
+  BURRITO20:{ type:'fixed', value:20, min:100 },
+  BIGORDER:{ type:'fixed', value:30, min:150 },
+  FREECHIPS:{ type:'fixed', value:15, min:0, label:'צ׳יפס חינם' },
+  CLUB10:{ type:'percent', value:10, clubOnly:true }
+};
 
-    function persist(){
-      localStorage.setItem('felipe_cart_v2', JSON.stringify(cart));
-      localStorage.setItem('felipe_profile_v2', JSON.stringify(profile));
-      localStorage.setItem('felipe_orders_v2', JSON.stringify(orders));
-      localStorage.setItem('felipe_points', String(userPoints));
-      localStorage.setItem('felipe_order_number', String(orderNumber));
-    }
+function persist(){
+  localStorage.setItem('felipe_cart_v2', JSON.stringify(cart));
+  localStorage.setItem('felipe_profile_v2', JSON.stringify(profile));
+  localStorage.setItem('felipe_orders_v2', JSON.stringify(orders));
+  localStorage.setItem('felipe_points', String(userPoints));
+  localStorage.setItem('felipe_order_number', String(orderNumber));
+}
 
-    function renderRadioList(items, name){
-      return `<div class="radio-list">${items.map((item,i)=>{
-        const label = Array.isArray(item)? item[0] : item;
-        const price = Array.isArray(item)? item[1] : null;
-        return `<div class="radio-item ${i===0?'active':''}" data-radio-group="${name}" data-radio-value="${label}" onclick="pickRadio(this)"><div><strong>${label}</strong>${price!==null?`<span>${price}₪</span>`:''}</div>${price!==null?`<strong>${price}₪</strong>`:''}</div>`;
-      }).join('')}</div>`;
-    }
+function renderRadioList(items, name){
+  return `<div class="radio-list">${items.map((item,i)=>{
+    const label = Array.isArray(item)? item[0] : item;
+    const price = Array.isArray(item)? item[1] : null;
+    return `<div class="radio-item ${i===0?'active':''}" data-radio-group="${name}" data-radio-value="${label}" onclick="pickRadio(this)"><div><strong>${label}</strong>${price!==null?`<span>${price}₪</span>`:''}</div>${price!==null?`<strong>${price}₪</strong>`:''}</div>`;
+  }).join('')}</div>`;
+}
 
-    function renderChips(items, kind){
-      return `<div class="chips">${items.map(item=>`<div class="chip" data-chip-kind="${kind}" data-chip-value="${item}" onclick="toggleChip(this)">${item}</div>`).join('')}</div>`;
-    }
+function renderChips(items, kind){
+  return `<div class="chips">${items.map(item=>`<div class="chip" data-chip-kind="${kind}" data-chip-value="${item}" onclick="toggleChip(this)">${item}</div>`).join('')}</div>`;
+}
 
-    function addSide(name, price){
-      cart.push({ name, price:Number(price), details:['תוספת בצד'] });
-      persist();
-      updateCart();
-      alert(name + ' נוסף לסל');
-    }
+function addSide(name, price){
+  cart.push({ name, price:Number(price), details:['תוספת בצד'] });
+
+  persist();
+  updateCart();
+  animateToCart();
+}
 
 function animateToCart(){
   if(navigator.vibrate){
@@ -1312,98 +1313,118 @@ function animateToCart(){
   fab.classList.add('cart-bounce');
 }
 
-    function applyCoupon(){
-      const code = document.getElementById('couponInput').value.trim().toUpperCase();
-      const message = document.getElementById('couponMessage');
-      if(!code){
-        message.innerText = 'צריך להזין קוד קופון';
-        return;
-      }
-      const coupon = coupons[code];
-      if(!coupon){
-        message.innerText = 'קופון לא קיים';
-        return;
-      }
-      const totals = calculateTotals(false);
-      if(coupon.min && totals.subtotal < coupon.min){
-        message.innerText = 'הקופון תקף רק מעל ' + coupon.min + '₪';
-        return;
-      }
-      if(coupon.firstOrder && orders.length > 0){
-        message.innerText = 'הקופון תקף רק להזמנה הראשונה';
-        return;
-      }
-      if(coupon.clubOnly && !profile){
-        message.innerText = 'הקופון תקף רק לחברי מועדון מחוברים';
-        return;
-      }
-      activeCoupon = {...coupon, code};
-      message.innerText = 'הקופון הופעל בהצלחה';
-      updateCart();
-    }
+function applyCoupon(){
+  const code = document.getElementById('couponInput').value.trim().toUpperCase();
+  const message = document.getElementById('couponMessage');
 
-    function toggleRedeemPoints(){
-      const message = document.getElementById('couponMessage');
-      if(!profile){
-        message.innerText = 'כדי לממש נקודות צריך להתחבר';
-        return;
-      }
-      if(userPoints <= 0){
-        message.innerText = 'אין נקודות למימוש';
-        return;
-      }
-      if(pointsRedeemed > 0){
-        pointsRedeemed = 0;
-        message.innerText = 'מימוש נקודות בוטל';
-        updateCart();
-        return;
-      }
-      const totals = calculateTotals(false);
-      const afterCoupon = Math.max(0, totals.subtotal - totals.couponDiscount);
-      pointsRedeemed = Math.min(userPoints, afterCoupon);
-      message.innerText = 'מומשו ' + pointsRedeemed + ' נקודות';
-      updateCart();
-    }
+  if(!code){
+    message.innerText = 'צריך להזין קוד קופון';
+    return;
+  }
 
-    function pickRadio(el){
-      const group = el.dataset.radioGroup;
-      document.querySelectorAll(`[data-radio-group="${group}"]`).forEach(x => x.classList.remove('active'));
-      el.classList.add('active');
-      if(group==='build-meat'){
-        const match = buildData.meats.find(x => x[0]===el.dataset.radioValue);
-        document.getElementById('productPrice').textContent = `${match[1]}₪`;
-      }
-    }
+  const coupon = coupons[code];
 
-    function toggleChip(el){ el.classList.toggle('active'); }
-    function getActiveRadio(group){
-      const el = document.querySelector(`[data-radio-group="${group}"].active`);
-      return el ? el.dataset.radioValue : '';
-    }
-    function getActiveChips(kind){
-      return [...document.querySelectorAll(`[data-chip-kind="${kind}"].active`)].map(el => el.dataset.chipValue);
-    }
+  if(!coupon){
+    message.innerText = 'קופון לא קיים';
+    return;
+  }
 
-    function openCombo(key){
-      const data = comboData[key];
-      currentProduct = { type:'combo', key, basePrice:data.price };
-      document.getElementById('productTitle').textContent = data.emoji + ' ' + data.name;
-      document.getElementById('productDesc').textContent = data.desc;
-      document.getElementById('productPrice').textContent = `${data.price}₪`;
-      document.getElementById('productNote').value = '';
-      document.getElementById('productCustomName').value = '';
-      document.getElementById('productOptions').innerHTML = `
-        <div class="option-group">
-          <div class="option-label">בחירת בשר</div>
-          ${renderRadioList(data.meat,'meat')}
-        </div>
-        <div class="option-group">
-          <div class="option-label">שינויים מהירים</div>
-          ${renderChips(data.changes,'changes')}
-        </div>
-      `;
-      openModal('productModal');
-    }
+  const totals = calculateTotals(false);
+
+  if(coupon.min && totals.subtotal < coupon.min){
+    message.innerText = 'הקופון תקף רק מעל ' + coupon.min + '₪';
+    return;
+  }
+
+  if(coupon.firstOrder && orders.length > 0){
+    message.innerText = 'הקופון תקף רק להזמנה הראשונה';
+    return;
+  }
+
+  if(coupon.clubOnly && !profile){
+    message.innerText = 'הקופון תקף רק לחברי מועדון מחוברים';
+    return;
+  }
+
+  activeCoupon = {...coupon, code};
+  message.innerText = 'הקופון הופעל בהצלחה';
+  updateCart();
+}
+
+function toggleRedeemPoints(){
+  const message = document.getElementById('couponMessage');
+
+  if(!profile){
+    message.innerText = 'כדי לממש נקודות צריך להתחבר';
+    return;
+  }
+
+  if(userPoints <= 0){
+    message.innerText = 'אין נקודות למימוש';
+    return;
+  }
+
+  if(pointsRedeemed > 0){
+    pointsRedeemed = 0;
+    message.innerText = 'מימוש נקודות בוטל';
+    updateCart();
+    return;
+  }
+
+  const totals = calculateTotals(false);
+  const afterCoupon = Math.max(0, totals.subtotal - totals.couponDiscount);
+  pointsRedeemed = Math.min(userPoints, afterCoupon);
+  message.innerText = 'מומשו ' + pointsRedeemed + ' נקודות';
+  updateCart();
+}
+
+function pickRadio(el){
+  const group = el.dataset.radioGroup;
+  document.querySelectorAll(`[data-radio-group="${group}"]`).forEach(x => x.classList.remove('active'));
+  el.classList.add('active');
+
+  if(group==='build-meat'){
+    const match = buildData.meats.find(x => x[0]===el.dataset.radioValue);
+    document.getElementById('productPrice').textContent = `${match[1]}₪`;
+  }
+}
+
+function toggleChip(el){
+  el.classList.toggle('active');
+}
+
+function getActiveRadio(group){
+  const el = document.querySelector(`[data-radio-group="${group}"].active`);
+  return el ? el.dataset.radioValue : '';
+}
+
+function getActiveChips(kind){
+  return [...document.querySelectorAll(`[data-chip-kind="${kind}"].active`)].map(el => el.dataset.chipValue);
+}
+
+function openCombo(key){
+  const data = comboData[key];
+  currentProduct = { type:'combo', key, basePrice:data.price };
+
+  document.getElementById('productTitle').textContent = data.emoji + ' ' + data.name;
+  document.getElementById('productDesc').textContent = data.desc;
+  document.getElementById('productPrice').textContent = `${data.price}₪`;
+  document.getElementById('productNote').value = '';
+  document.getElementById('productCustomName').value = '';
+
+  document.getElementById('productOptions').innerHTML = `
+    <div class="option-group">
+      <div class="option-label">בחירת בשר</div>
+      ${renderRadioList(data.meat,'meat')}
+    </div>
+    <div class="option-group">
+      <div class="option-label">שינויים מהירים</div>
+      ${renderChips(data.changes,'changes')}
+    </div>
+  `;
+
+  openModal('productModal');
+}
 
     function openBuild(){
       currentProduct = { type:'build' };
