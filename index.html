@@ -1979,28 +1979,26 @@ animateToCart(el);
   document.getElementById('couponInput').value = '';
   document.getElementById('couponMessage').innerText = '';
 
-  persist();
-  updateCart();
-animateToCart(el);
-  renderHistory();
-  renderProfile();
-  updatePointsDisplay();
+persist();
+updateCart();
+renderHistory();
+renderProfile();
+updatePointsDisplay();
 
-  setTimeout(()=>{
-  messageBox.className = 'message-box success';
-  messageBox.style.display = 'block';
-  messageBox.innerText = `✅ ההזמנה #${orderNumber} נשלחה בהצלחה! קיבלת ${earnedPoints} נקודות.`;
-},100);
+messageBox.className = 'message-box success';
+messageBox.style.display = 'block';
+messageBox.innerText =
+  `✅ ההזמנה #${orderNumber} נשלחה בהצלחה! קיבלת ${earnedPoints} נקודות.`;
+
+setTimeout(()=>{
+
+  closeModal('cartModal');
+
+  alert(`✅ ההזמנה #${orderNumber} נשלחה בהצלחה!`);
+
+},400);
+
 }
-
-let paymentMethod = "cash";
-
-function selectPayment(method){
-  paymentMethod = method;
-
-  const cashBtn = document.getElementById("payCashBtn");
-  const bitBtn = document.getElementById("payBitBtn");
-
   // איפוס
   cashBtn.style.transform = "scale(1)";
   bitBtn.style.transform = "scale(1)";
